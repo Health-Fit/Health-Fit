@@ -1,6 +1,6 @@
-package com.heemin.ws.dto.video;
+package com.heemin.ws.model.dto.video;
 
-import com.heemin.ws.dto.category.ExerciseCategory;
+import com.heemin.ws.model.dto.category.ExerciseCategory;
 import java.util.Date;
 import java.util.List;
 

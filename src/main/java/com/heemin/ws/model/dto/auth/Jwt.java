@@ -1,4 +1,4 @@
-package com.heemin.ws.dto.auth;
+package com.heemin.ws.model.dto.auth;
 
 public class Jwt {
     private String refreshToken;

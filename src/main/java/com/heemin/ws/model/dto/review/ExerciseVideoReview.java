@@ -1,7 +1,7 @@
-package com.heemin.ws.dto.review;
+package com.heemin.ws.model.dto.review;
 
-import com.heemin.ws.dto.member.Member;
-import com.heemin.ws.dto.video.ExerciseVideo;
+import com.heemin.ws.model.dto.member.Member;
+import com.heemin.ws.model.dto.video.ExerciseVideo;
 import java.util.Date;
 
 public class ExerciseVideoReview {

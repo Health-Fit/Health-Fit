@@ -1,4 +1,4 @@
-package com.heemin.ws.dto.member;
+package com.heemin.ws.model.dto.member;
 
 import java.util.Date;
 import lombok.Getter;

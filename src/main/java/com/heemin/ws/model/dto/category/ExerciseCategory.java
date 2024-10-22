@@ -1,4 +1,4 @@
-package com.heemin.ws.dto.category;
+package com.heemin.ws.model.dto.category;
 
 public class ExerciseCategory {
     private long id;
