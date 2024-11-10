@@ -1,9 +1,9 @@
 package com.heemin.ws.controller;
 
 import com.heemin.ws.model.service.AuthService;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class AuthController {
     private AuthService authService;
 
