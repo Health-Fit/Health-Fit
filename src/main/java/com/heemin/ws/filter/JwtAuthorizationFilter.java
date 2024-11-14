@@ -1,7 +1,7 @@
 package com.heemin.ws.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.heemin.ws.model.dto.auth.JwtProvider;
+import com.heemin.ws.model.service.auth.JwtProvider;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;

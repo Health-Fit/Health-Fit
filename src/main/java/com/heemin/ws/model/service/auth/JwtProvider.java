@@ -1,5 +1,6 @@
-package com.heemin.ws.model.dto.auth;
+package com.heemin.ws.model.service.auth;
 
+import com.heemin.ws.model.dto.auth.Jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;

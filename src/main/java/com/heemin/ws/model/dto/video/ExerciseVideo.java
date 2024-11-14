@@ -1,24 +1,25 @@
 package com.heemin.ws.model.dto.video;
 
 import com.heemin.ws.model.dto.category.ExerciseCategory;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public class ExerciseVideo {
     private long id;
+    private String title;
     private String url;
     private long viewCnt;
     private long reviewCnt;
-    private Date regDate;
+    private LocalDate regDate;
     private boolean deleted;
     private List<ExerciseCategory> categories;
 
-    public List<ExerciseCategory> getCategories() {
-        return categories;
+    public String getTitle() {
+        return title;
     }
 
-    public void setCategories(List<ExerciseCategory> categories) {
-        this.categories = categories;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public long getId() {
@@ -53,11 +54,11 @@ public class ExerciseVideo {
         this.reviewCnt = reviewCnt;
     }
 
-    public Date getRegDate() {
+    public LocalDate getRegDate() {
         return regDate;
     }
 
-    public void setRegDate(Date regDate) {
+    public void setRegDate(LocalDate regDate) {
         this.regDate = regDate;
     }
 
@@ -67,5 +68,13 @@ public class ExerciseVideo {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public List<ExerciseCategory> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<ExerciseCategory> categories) {
+        this.categories = categories;
     }
 }
