@@ -2,7 +2,7 @@ package com.heemin.ws.model.dto.review;
 
 import com.heemin.ws.model.dto.member.Member;
 import com.heemin.ws.model.dto.video.ExerciseVideo;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class ExerciseVideoReview {
     private long id;
@@ -11,10 +11,9 @@ public class ExerciseVideoReview {
     private String content;
     private long likeCnt;
     private long blockCnt;
-    private Date regDate;
-    private Date updateDate;
+    private LocalDate regDate;
+    private LocalDate updateDate;
     private boolean deleted;
-
 
 
     public long getId() {
@@ -57,19 +56,27 @@ public class ExerciseVideoReview {
         this.likeCnt = likeCnt;
     }
 
-    public Date getRegDate() {
+    public long getBlockCnt() {
+        return blockCnt;
+    }
+
+    public void setBlockCnt(long blockCnt) {
+        this.blockCnt = blockCnt;
+    }
+
+    public LocalDate getRegDate() {
         return regDate;
     }
 
-    public void setRegDate(Date regDate) {
+    public void setRegDate(LocalDate regDate) {
         this.regDate = regDate;
     }
 
-    public Date getUpdateDate() {
+    public LocalDate getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(Date updateDate) {
+    public void setUpdateDate(LocalDate updateDate) {
         this.updateDate = updateDate;
     }
 

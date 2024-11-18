@@ -1,4 +1,13 @@
 package com.heemin.ws.model.service;
 
-public interface ExerciseVideoReviewService {
+import com.heemin.ws.model.dao.ExerciseVideoReviewDao;
+import org.springframework.stereotype.Service;
+
+@Service
+public class ExerciseVideoReviewService {
+    private ExerciseVideoReviewDao exerciseVideoReviewDao;
+
+    public ExerciseVideoReviewService(ExerciseVideoReviewDao exerciseVideoReviewDao) {
+        this.exerciseVideoReviewDao = exerciseVideoReviewDao;
+    }
 }

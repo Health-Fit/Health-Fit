@@ -1,13 +1,13 @@
 package com.heemin.ws.model.dto.video;
 
 import com.heemin.ws.model.dto.member.Member;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class ExerciseVideoLike {
     private long id;
     private Member member;
     private ExerciseVideo exerciseVideo;
-    private Date regDate;
+    private LocalDate regDate;
 
     public long getId() {
         return id;
@@ -33,11 +33,11 @@ public class ExerciseVideoLike {
         this.exerciseVideo = exerciseVideo;
     }
 
-    public Date getRegDate() {
+    public LocalDate getRegDate() {
         return regDate;
     }
 
-    public void setRegDate(Date regDate) {
+    public void setRegDate(LocalDate regDate) {
         this.regDate = regDate;
     }
 }

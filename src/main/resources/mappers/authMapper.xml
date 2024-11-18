@@ -4,4 +4,9 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.heemin.ws.model.dao.AuthDao">
 
+    <insert id="insertRefreshToken" parameterType="map">
+        INSERT INTO refresh_token (member_id, token)
+        VALUES (#{memberId}, #{refreshToken})
+    </insert>
+
 </mapper>

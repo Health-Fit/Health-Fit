@@ -1,13 +1,7 @@
 package com.heemin.ws.model.dto.member;
 
-import java.util.Date;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.time.LocalDate;
 
-@Getter
-@Setter
-@NoArgsConstructor
 public class Member {
     private long id;
     private String email;
@@ -16,10 +10,11 @@ public class Member {
     private String name;
     private String gender;
     private String profileImg;
-    private Date birth;
+    private LocalDate birth;
+    private String tel;
     private boolean deleted;
-    private Date deleteDate;
-    private Date regDate;
+    private LocalDate deleteDate;
+    private LocalDate regDate;
     private int memberAuth;
 
     public long getId() {
@@ -27,16 +22,7 @@ public class Member {
     }
 
     public void setId(long id) {
-
         this.id = id;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getEmail() {
@@ -45,6 +31,14 @@ public class Member {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getName() {
@@ -71,14 +65,20 @@ public class Member {
         this.profileImg = profileImg;
     }
 
-    public Date getBirth() {
+    public LocalDate getBirth() {
         return birth;
     }
 
-    public void setBirth(Date birth) {
-        if (birth == null)
-            return;
+    public void setBirth(LocalDate birth) {
         this.birth = birth;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
     }
 
     public boolean isDeleted() {
@@ -89,23 +89,19 @@ public class Member {
         this.deleted = deleted;
     }
 
-    public Date getDeleteDate() {
+    public LocalDate getDeleteDate() {
         return deleteDate;
     }
 
-    public void setDeleteDate(Date deleteDate) {
-        if (deleteDate == null)
-            return;
+    public void setDeleteDate(LocalDate deleteDate) {
         this.deleteDate = deleteDate;
     }
 
-    public Date getRegDate() {
+    public LocalDate getRegDate() {
         return regDate;
     }
 
-    public void setRegDate(Date regDate) {
-        if (regDate == null)
-            return;
+    public void setRegDate(LocalDate regDate) {
         this.regDate = regDate;
     }
 
