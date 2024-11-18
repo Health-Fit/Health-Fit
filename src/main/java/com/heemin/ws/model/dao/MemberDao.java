@@ -7,4 +7,7 @@ public interface MemberDao {
     Member selectByEmail(String email);
 
     int insert(Member member);
+
+    public Member selectById(long id);
+	public int update(Member member);
 }

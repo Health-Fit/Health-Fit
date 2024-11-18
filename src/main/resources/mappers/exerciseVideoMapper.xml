@@ -1,43 +1,82 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.heemin.ws.model.dao.ExerciseVideoDao">
-
-    <resultMap id="ExerciseVideoResultMap" type="ExerciseVideo">
-        <id property="id" column="id"/>
-        <result property="title" column="title"/>
-        <result property="url" column="url"/>
-        <collection property="categories" ofType="ExerciseCategory">
-            <id property="id" column="category_id"/>
-            <result property="name" column="category_name"/>
-            <result property="categoryType" column="category_type"/>
-        </collection>
-    </resultMap>
-
-    <select id="selectExample" resultMap="ExerciseVideoResultMap">
-        SELECT
-        ec.id AS category_id,
-        ec.name AS category_name,
-        ec.category_type AS category_type,
-        ev.id AS id,
-        ev.title AS title,
-        ev.url AS url,
-        FROM
-        exercise_category ec
-        JOIN
-        exercise_video_category evc ON ec.id = evc.exercise_category_id
-        JOIN
-        exercise_video ev ON evc.exercise_video_id = ev.id
-        WHERE
-        ev.deleted = false
-        AND ev.view_cnt = (
-        SELECT MAX(ev2.view_cnt)
-        FROM exercise_video_category evc2
-        JOIN exercise_video ev2 ON evc2.exercise_video_id = ev2.id
-        WHERE evc2.exercise_category_id = ec.id AND ev2.deleted = false
-        )
-    </select>
-
-
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heemin.ws.model.dao.VideoDao">
+  <select id="selectAll" resultType="Video">
+  	SELECT * FROM exercise_video
+  	WHERE deleted = false;
+  </select>
+  
+  <select id="selectByCondition" resultType="Video">
+  	SELECT * FROM exercise_video
+  	WHERE id IN (SELECT exercise_video_id FROM exercise_video_category WHERE exercise_category_id = #{categoryId})
+  	AND deleted = false
+  	AND title LIKE CONCAT('%', #{searchValue}, '%')
+  	ORDER BY view_cnt;
+  </select>
+  
+  <select id="selectSample" resultType="Video">
+  	SELECT * FROM exercise_video;
+  </select>
+  
+  <select id="selectById" parameterType="long" resultType="Video">
+  	SELECT * FROM exercise_video
+  	WHERE id = #{id};
+  </select>
+  
+  <update id="updateViewCnt" parameterType="long">
+  	UPDATE exercise_video
+  	SET view_cnt = view_cnt + 1
+  	WHERE id = #{id};
+  </update>
+  
+  <select id="selectByCategory" parameterType="int" resultType="Video">
+  	SELECT * FROM exercise_video
+  	WHERE id IN (SELECT exercise_video_id FROM exercise_video_category WHERE exercise_category_id = #{categoryId});
+  </select>
+  
+  <select id="selectOrderByView" resultType="Video">
+  	SELECT * FROM exercise_video;
+  	ORDER BY view_cnt;
+  </select>
+  
+  <select id="selectByLike" parameterType="int" resultType="Video">
+  	SELECT ev.id AS id, ev.title AS title, ev.url AS url, ev.view_cnt AS view_cnt, ev.review_cnt AS review_cnt, ev.reg_date AS video_reg_date, evl.reg_date AS like_reg_date
+FROM exercise_video_like evl
+JOIN exercise_video ev ON evl.exercise_video_id = ev.id
+WHERE evl.member_id = #{memberId} 
+ORDER BY evl.reg_date DESC;
+  </select>
+  
+  <select id="checkLiked" resultType="int">
+  	SELECT COUNT(*) FROM exercise_video_like
+  	WHERE #{videoId} IN (SELECT exercise_video_id FROM exercise_video_like WHERE member_id = #{userId});
+  </select>
+  
+  <insert id="insertLike">
+  	INSERT INTO exercise_video_like (member_id, exercise_video_id)
+    VALUES (#{memberId}, #{videoId});
+  </insert>
+  
+  <delete id="deleteLike">
+  	DELETE FROM exercise_video_like
+  	WHERE member_id = #{memberId} AND exercise_video_id = #{videoId};
+  </delete>
+  
+  <insert id="insertBlock">
+  	INSERT INTO exercise_video_block (member_id, exercise_video_id)
+  	VALUES (#{memberId}, #{videoId});
+  </insert>
+  
+  <delete id="deleteBlock">
+  	DELETE FROM exercise_video_block
+  	WHERE member_id = #{memberId} AND exercise_video_id = #{videoId};
+  </delete>
+  
+  <update id="updateDelete" parameterType="long">
+  	UPDATE exercise_video
+  	SET deleted = true
+  	WHERE id = #{id};
+  </update>
 </mapper>

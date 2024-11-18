@@ -1,31 +1,40 @@
-package com.ssafy.ssafit.model.dto.review;
+package com.ssafy.ssafit.model.dto.place;
 
 import java.time.LocalDate;
 import java.util.Date;
 
-public class ExerciseVideoReview {
+public class PlaceReview {
 	private long id;
 	private long memberId;
-	private long exerciseVideoId;
+	private long exercisePlaceId;
 	private String content;
 	private long likeCnt;
 	private long blockCnt;
-	private boolean liked;		// 해당 리뷰 좋아요 표시 여부
-	private boolean blocked;	// 해당 리뷰 싫어요 표시 여부
+	private boolean liked;
+	private boolean  blocked;
 	private int rating;
 	private LocalDate regDate;
 	private LocalDate updateDate;
 	private boolean deleted;
 	
-	public ExerciseVideoReview() {
+	public PlaceReview() {
 		
 	}
-	
-	public ExerciseVideoReview(long memberId, long exerciseVideoId, String content, int rating, boolean deleted) {
+
+	public PlaceReview(long id, long memberId, long exercisePlaceId, String content, long likeCnt, long blockCnt,
+			boolean liked, boolean blocked, int rating, LocalDate regDate, LocalDate updateDate, boolean deleted) {
+		super();
+		this.id = id;
 		this.memberId = memberId;
-		this.exerciseVideoId = exerciseVideoId;
+		this.exercisePlaceId = exercisePlaceId;
 		this.content = content;
+		this.likeCnt = likeCnt;
+		this.blockCnt = blockCnt;
+		this.liked = liked;
+		this.blocked = blocked;
 		this.rating = rating;
+		this.regDate = regDate;
+		this.updateDate = updateDate;
 		this.deleted = deleted;
 	}
 
@@ -45,12 +54,12 @@ public class ExerciseVideoReview {
 		this.memberId = memberId;
 	}
 
-	public long getExerciseVideoId() {
-		return exerciseVideoId;
+	public long getExercisePlaceId() {
+		return exercisePlaceId;
 	}
 
-	public void setExerciseVideoId(long exerciseVideoId) {
-		this.exerciseVideoId = exerciseVideoId;
+	public void setExercisePlaceId(long exercisePlaceId) {
+		this.exercisePlaceId = exercisePlaceId;
 	}
 
 	public String getContent() {
@@ -127,8 +136,11 @@ public class ExerciseVideoReview {
 
 	@Override
 	public String toString() {
-		return "Review [id=" + id + ", memberId=" + memberId + ", exerciseVideoId=" + exerciseVideoId + ", content="
-				+ content + ", likeCnt=" + likeCnt + ", blockCnt=" + blockCnt + ", rating=" + rating + ", regDate="
-				+ regDate + ", updateDate=" + updateDate + ", deleted=" + deleted + "]";
+		return "PlaceReview [id=" + id + ", memberId=" + memberId + ", exercisePlaceId=" + exercisePlaceId
+				+ ", content=" + content + ", likeCnt=" + likeCnt + ", blockCnt=" + blockCnt + ", liked=" + liked
+				+ ", blocked=" + blocked + ", rating=" + rating + ", regDate=" + regDate + ", updateDate=" + updateDate
+				+ ", deleted=" + deleted + "]";
 	}
+	
+	
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heemin.ws.model.dao.CategoryDao">
+	<select id="selectAll">
+		SELECT * FROM exercise_category;
+	</select>
+
+  	<select id="selectExerciseCategoryByVideoId">
+  		SELECT * FROM exercise_category
+  		WHERE id = (SELECT exercise_category_id FROM exercise_video_category WHERE exercise_video_id = #{videoId});
+  	</select>
+</mapper>

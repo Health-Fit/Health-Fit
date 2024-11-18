@@ -1,7 +1,52 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.heemin.ws.model.dao.ExerciseVideoReviewDao">
-
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heemin.ws.model.dao.VideoReviewDao">
+  <insert id="insert" parameterType="ExerciseReview">
+  	INSERT INTO exercise_video_review
+  	(member_id, exercise_video_id, content, rating)
+  	VALUES (#{memberId}, #{exerciseVideoId}, #{content}, #{rating});
+  </insert>
+  
+  <update id="update" parameterType="ExerciseReview">
+  	UPDATE exercise_video_review 
+  	SET content = #{content}, rating = #{rating}, update_date = #{updateDate};
+  </update>
+  
+  <update id="delete">
+  	UPDATE exercise_video_review
+  	SET deleted = true
+  	WHERE id = #{id};
+  </update>
+  
+  <select id="selectByVideoId">
+  	SELECT * FROM exercise_video_review
+  	WHERE exercise_video_id = #{id};
+  </select>
+  
+  <select id="selectByMemberId">
+  	SELECT * FROM exercise_video_review
+  	WHERE member_id = #{id};
+  </select>
+  
+  <insert id="insertLike">
+  	INSERT INTO exercise_video_review_like (member_id, exercise_video_review_id)
+    VALUES (#{memberId}, #{reviewId});
+  </insert>
+  
+  <delete id="deleteLike">
+  	DELETE FROM exercise_video_review_like
+  	WHERE member_id = #{memberId} AND exercise_video_review_id = #{reviewId};
+  </delete>
+  
+  <insert id="insertBlock">
+  	INSERT INTO exercise_video_review_block (member_id, exercise_video_review_id)
+  	VALUES (#{memberId}, #{reviewId});
+  </insert>
+  
+  <delete id="deleteBlock">
+  	DELETE FROM exercise_video_review_block
+  	WHERE member_id = #{memberId} AND exercise_video_review_id = #{reviewId};
+  </delete>
 </mapper>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heemin.ws.model.dao.VideoReviewDao">
+  <select id="selectById">
+  	SELECT * FROM exercise_place_review
+  	WHERE exercise_place_id = #{id};
+  </select>
+  
+  <insert id="insertReview" parameterType="PlaceReview">
+  	INSERT INTO exercise_place_review
+  	(member_id, exercise_place_id, content, rating)
+  	VALUES (#{memberId}, #{exercisePlaceId}, #{content}, #{rating});
+  </insert>
+</mapper>

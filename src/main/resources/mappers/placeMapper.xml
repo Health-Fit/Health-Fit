@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heemin.ws.model.dao.PlaceDao">
+  <select id="selectByVideoId" resultType="Place" parameterType="long">
+  	SELECT * FROM exercise_place
+  	WHERE id = #{id};
+  </select>
+  
+  <insert id="insertLike">
+  	INSERT INTO exercise_place_like (member_id, exercise_place_id)
+    VALUES (#{memberId}, #{placeId});
+  </insert>
+  
+  <delete id="deleteLike">
+  	DELETE FROM exercise_place_like
+  	WHERE member_id = #{memberId} AND exercise_place_id = #{placeId};
+  </delete>
+  
+  <insert id="insertBlock">
+  	INSERT INTO exercise_place_block (member_id, exercise_place_id)
+  	VALUES (#{memberId}, #{placeId});
+  </insert>
+  
+  <delete id="deleteBlock">
+  	DELETE FROM exercise_place_block
+  	WHERE member_id = #{memberId} AND exercise_place_id = #{placeId};
+  </delete>
+</mapper>
