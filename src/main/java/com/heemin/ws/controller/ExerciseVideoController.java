@@ -1,11 +1,15 @@
 package com.heemin.ws.controller;
 
+import com.heemin.ws.model.dto.SearchCondition;
 import com.heemin.ws.model.dto.member.Member;
+import com.heemin.ws.model.dto.requests.video.VideoBlock;
+import com.heemin.ws.model.dto.requests.video.VideoLike;
 import com.heemin.ws.model.dto.video.ExerciseVideo;
 import com.heemin.ws.model.service.ExerciseVideoReviewService;
 import com.heemin.ws.model.service.ExerciseVideoService;
+import com.heemin.ws.model.service.MemberService;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,17 +20,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.heemin.ws.model.dto.Member;
-import com.heemin.ws.model.dto.SearchCondition;
-import com.heemin.ws.model.dto.Video;
-import com.heemin.ws.model.dto.requests.video.VideoBlock;
-import com.heemin.ws.model.dto.requests.video.VideoLike;
-import com.heemin.ws.model.service.MemberService;
-import com.heemin.ws.model.service.VideoReviewService;
-import com.heemin.ws.model.service.VideoService;
-
-import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/api/videos")

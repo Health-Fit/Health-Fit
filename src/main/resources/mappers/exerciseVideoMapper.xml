@@ -2,13 +2,13 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.heemin.ws.model.dao.VideoDao">
-  <select id="selectAll" resultType="Video">
+<mapper namespace="com.heemin.ws.model.dao.ExerciseVideoDao">
+  <select id="selectAll" resultType="ExerciseVideo">
   	SELECT * FROM exercise_video
   	WHERE deleted = false;
   </select>
   
-  <select id="selectByCondition" resultType="Video">
+  <select id="selectByCondition" resultType="ExerciseVideo">
   	SELECT * FROM exercise_video
   	WHERE id IN (SELECT exercise_video_id FROM exercise_video_category WHERE exercise_category_id = #{categoryId})
   	AND deleted = false
@@ -16,11 +16,11 @@
   	ORDER BY view_cnt;
   </select>
   
-  <select id="selectSample" resultType="Video">
+  <select id="selectSample" resultType="ExerciseVideo">
   	SELECT * FROM exercise_video;
   </select>
   
-  <select id="selectById" parameterType="long" resultType="Video">
+  <select id="selectById" parameterType="long" resultType="ExerciseVideo">
   	SELECT * FROM exercise_video
   	WHERE id = #{id};
   </select>
@@ -31,17 +31,17 @@
   	WHERE id = #{id};
   </update>
   
-  <select id="selectByCategory" parameterType="int" resultType="Video">
+  <select id="selectByCategory" parameterType="int" resultType="ExerciseVideo">
   	SELECT * FROM exercise_video
   	WHERE id IN (SELECT exercise_video_id FROM exercise_video_category WHERE exercise_category_id = #{categoryId});
   </select>
   
-  <select id="selectOrderByView" resultType="Video">
+  <select id="selectOrderByView" resultType="ExerciseVideo">
   	SELECT * FROM exercise_video;
   	ORDER BY view_cnt;
   </select>
   
-  <select id="selectByLike" parameterType="int" resultType="Video">
+  <select id="selectByLike" parameterType="int" resultType="ExerciseVideo">
   	SELECT ev.id AS id, ev.title AS title, ev.url AS url, ev.view_cnt AS view_cnt, ev.review_cnt AS review_cnt, ev.reg_date AS video_reg_date, evl.reg_date AS like_reg_date
 FROM exercise_video_like evl
 JOIN exercise_video ev ON evl.exercise_video_id = ev.id

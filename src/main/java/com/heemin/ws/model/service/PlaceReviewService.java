@@ -3,7 +3,9 @@ package com.heemin.ws.model.service;
 import com.heemin.ws.model.dao.PlaceReviewDao;
 import com.heemin.ws.model.dto.place.PlaceReview;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
+@Service
 public class PlaceReviewService {
 	PlaceReviewDao placeReviewDao;
 	public PlaceReviewService(PlaceReviewDao placeReviewDao) {

@@ -2,14 +2,14 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.heemin.ws.model.dao.VideoReviewDao">
-  <insert id="insert" parameterType="ExerciseReview">
+<mapper namespace="com.heemin.ws.model.dao.ExerciseVideoReviewDao">
+  <insert id="insert" parameterType="ExerciseVideoReview">
   	INSERT INTO exercise_video_review
   	(member_id, exercise_video_id, content, rating)
   	VALUES (#{memberId}, #{exerciseVideoId}, #{content}, #{rating});
   </insert>
   
-  <update id="update" parameterType="ExerciseReview">
+  <update id="update" parameterType="ExerciseVideoReview">
   	UPDATE exercise_video_review 
   	SET content = #{content}, rating = #{rating}, update_date = #{updateDate};
   </update>

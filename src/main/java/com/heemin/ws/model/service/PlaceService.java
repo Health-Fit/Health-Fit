@@ -2,7 +2,9 @@ package com.heemin.ws.model.service;
 
 import com.heemin.ws.model.dao.PlaceDao;
 import com.heemin.ws.model.dto.place.Place;
+import org.springframework.stereotype.Service;
 
+@Service
 public class PlaceService {
 	PlaceDao placeDao;
 	

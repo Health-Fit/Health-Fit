@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.heemin.ws.model.dao.VideoReviewDao">
+<mapper namespace="com.heemin.ws.model.dao.PlaceReviewDao">
   <select id="selectById">
   	SELECT * FROM exercise_place_review
   	WHERE exercise_place_id = #{id};
