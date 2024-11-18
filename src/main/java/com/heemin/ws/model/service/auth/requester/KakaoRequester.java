@@ -7,6 +7,7 @@ import com.heemin.ws.model.service.auth.OauthProperties.Kakao;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -61,10 +62,8 @@ public class KakaoRequester implements OauthRequester {
                 .get()
                 .uri(uri)
                 .headers(header -> {
-                    header.add("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
-//                    header.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-                    header.add("Authorization", "Bearer " + token.getAccessToken());
-//                    header.setBearerAuth(token.getAccessToken());
+                    header.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+                    header.setBearerAuth(token.getAccessToken());
                 })
                 .retrieve()
                 .bodyToMono(Map.class)
