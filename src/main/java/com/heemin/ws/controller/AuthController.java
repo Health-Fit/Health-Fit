@@ -2,6 +2,7 @@ package com.heemin.ws.controller;
 
 import com.heemin.ws.model.service.auth.AuthService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,7 @@ public class AuthController {
         this.authService = authService;
     }
 
-    @PostMapping("/login/{type}")
+    @GetMapping ("/login/{type}")
     public ResponseEntity<?> login(@PathVariable String type, @RequestParam String code) {
         return authService.login(type, code).getResponse();
     }

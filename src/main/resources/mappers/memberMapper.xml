@@ -7,4 +7,16 @@
     <select id="selectByEmail" parameterType="String" resultType="Member">
         select * from member where email = #{email};
     </select>
+
+    <insert id="insert" parameterType="Member" useGeneratedKeys="true" keyProperty="id">
+        insert into member (email, name, nickname, gender, tel, birth
+        <if test="profileImg != null">
+            , profile_img
+        </if>)
+        values (#{email}, #{name}, #{name}, #{gender}, #{tel}, #{birth}
+        <if test="profileImg != null">
+            , #{profileImg}
+        </if>);
+    </insert>
+
 </mapper>

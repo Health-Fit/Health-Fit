@@ -5,11 +5,8 @@ import com.heemin.ws.model.dto.member.Member;
 import com.heemin.ws.model.service.auth.OauthProperties;
 import com.heemin.ws.model.service.auth.OauthProperties.Kakao;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Map;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -27,16 +24,18 @@ public class KakaoRequester implements OauthRequester {
 
     @Override
     public OauthToken getToken(final String code) {
-        return WebClient.create()
+
+        return  WebClient.create()
                 .post()
                 .uri(kakao.getProvider().getTokenUri())
                 .headers(header -> {
-                    header.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+                    header.add("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
                 })
                 .bodyValue(createTokenRequestBody(code))
                 .retrieve()
                 .bodyToMono(OauthToken.class)
                 .block();
+
     }
 
     private MultiValueMap<String, String> createTokenRequestBody(final String code) {
@@ -62,8 +61,10 @@ public class KakaoRequester implements OauthRequester {
                 .get()
                 .uri(uri)
                 .headers(header -> {
-                    header.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-                    header.setBearerAuth(token.getAccessToken());
+                    header.add("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+//                    header.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+                    header.add("Authorization", "Bearer " + token.getAccessToken());
+//                    header.setBearerAuth(token.getAccessToken());
                 })
                 .retrieve()
                 .bodyToMono(Map.class)
@@ -82,12 +83,11 @@ public class KakaoRequester implements OauthRequester {
         member.setGender(kakaoAccount.get("gender").toString());
         member.setProfileImg(((Map<String, Object>)kakaoAccount.get("profile")).get("profile_image_url").toString());
 
-        String birthStr = kakaoAccount.get("birthyear").toString() + kakaoAccount.get("birthday").toString();
+        String birthStr = kakaoAccount.getOrDefault("birthyear", "2024").toString() + kakaoAccount.getOrDefault("birthday", "1118").toString();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
         LocalDate localDate = LocalDate.parse(birthStr, formatter);
-        Date birth = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-        member.setBirth(birth);
+        member.setBirth(localDate);
 
         return member;
     }

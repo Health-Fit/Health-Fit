@@ -11,6 +11,7 @@ public class Member {
     private String gender;
     private String profileImg;
     private LocalDate birth;
+    private String tel;
     private boolean deleted;
     private LocalDate deleteDate;
     private LocalDate regDate;
@@ -70,6 +71,14 @@ public class Member {
 
     public void setBirth(LocalDate birth) {
         this.birth = birth;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
     }
 
     public boolean isDeleted() {
