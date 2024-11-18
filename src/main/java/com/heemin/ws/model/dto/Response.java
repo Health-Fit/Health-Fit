@@ -14,6 +14,10 @@ public class Response {
         this.status = status;
     }
 
+    public Response(int status) {
+        this.status = status;
+    }
+
     public ResponseEntity<?> getResponse() {
         return ResponseEntity.status(this.status).body(data);
     }
