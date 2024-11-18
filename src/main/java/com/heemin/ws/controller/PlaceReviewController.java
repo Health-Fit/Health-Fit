@@ -2,6 +2,7 @@ package com.heemin.ws.controller;
 
 import com.heemin.ws.model.dto.place.PlaceReview;
 import com.heemin.ws.model.service.PlaceReviewService;
+import com.heemin.ws.support.Auth;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import org.springframework.http.HttpStatus;
@@ -22,8 +23,7 @@ public class PlaceReviewController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<?> getByPlaceId(HttpSession session, long id){
-		
+	public ResponseEntity<?> getByPlaceId(@Auth Long memberId, long id){
 		List<PlaceReview> reviews = placeReviewService.getById(id);
 		if (reviews == null || reviews.size() == 0)
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);

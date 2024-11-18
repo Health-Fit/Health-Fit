@@ -26,10 +26,10 @@ public class ExerciseVideoService {
 		return videos;
 	}
 	
-	public List<ExerciseVideo> getVideoByCondition(long memberId, SearchCondition condition){
+	public List<ExerciseVideo> getVideoByCondition(Long memberId, SearchCondition condition){
 		List<ExerciseVideo> videos = videoDao.selectByCondition(condition);
 		insertCategory(videos);
-		if (memberId != -1)
+		if (memberId != null)
 			insertLiked(videos, memberId);
 		return videos;
 	}
@@ -39,12 +39,12 @@ public class ExerciseVideoService {
 		return videos;
 	}
 
-	public ExerciseVideo getVideoById(long id, long memberId) {
+	public ExerciseVideo getVideoById(long id, Long memberId) {
 		// 영상 보기전 조회수 증가
-		videoDao.updateViewCnt(id);
+		//videoDao.updateViewCnt(id);
 		ExerciseVideo video = videoDao.selectById(id);
 		insertCategory(video);
-		if (memberId != -1)
+		if (memberId != null)
 		insertLiked(video, memberId);
 		return video;
 	}

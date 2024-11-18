@@ -5,6 +5,7 @@ import com.heemin.ws.model.dto.requests.review.ExerciseReviewBlock;
 import com.heemin.ws.model.dto.requests.review.ExerciseReviewLike;
 import com.heemin.ws.model.dto.review.ExerciseVideoReview;
 import com.heemin.ws.model.service.ExerciseVideoReviewService;
+import com.heemin.ws.support.Auth;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import org.springframework.http.HttpStatus;
@@ -54,12 +55,9 @@ public class ExerciseVideoReviewController {
     
     // 리뷰 좋아요 기능
     @PutMapping("/like")
-    public ResponseEntity<?> like(HttpSession session, @RequestBody ExerciseReviewLike exerciseReviewLike){
-    	long memberId = -1;
-		if (session.getAttribute("memberId") != null)
-			memberId = (Long)session.getAttribute("memberId");
+    public ResponseEntity<?> like(@Auth Long memberId, @RequestBody ExerciseReviewLike exerciseReviewLike){
 		// 로그인하지 않은 경우 BAD REQUEST로 돌림
-		if (memberId == -1)
+		if (memberId == null)
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
     	
     	if (reviewService.setReviewLike(memberId, exerciseReviewLike.getReviewId(), exerciseReviewLike.isLike()))
@@ -70,12 +68,9 @@ public class ExerciseVideoReviewController {
     
     // 리뷰 신고하기 기능
     @PutMapping("/block")
-    public ResponseEntity<?> block(HttpSession session, @RequestBody ExerciseReviewBlock exerciseReviewBlock){
-    	long memberId = -1;
-		if (session.getAttribute("memberId") != null)
-			memberId = (Long)session.getAttribute("memberId");
+    public ResponseEntity<?> block(@Auth Long memberId, @RequestBody ExerciseReviewBlock exerciseReviewBlock){
 		// 로그인하지 않은 경우 BAD REQUEST로 돌림
-		if (memberId == -1)
+		if (memberId == null)
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
     	
     	if (reviewService.setReviewBlock(memberId, exerciseReviewBlock.getReviewId(), exerciseReviewBlock.isBlock()))
@@ -86,11 +81,7 @@ public class ExerciseVideoReviewController {
     
     // 비디오 아이디로 리뷰 받아오기
     @PostMapping("/{videoId}")
-    public ResponseEntity<?> getVideoReview(HttpSession session, @PathVariable long videoId, @RequestBody SearchCondition searchCondition){
-    	long memberId = -1;
-    	if (session.getAttribute("memberId") != null)
-    		memberId = (Long)session.getAttribute("memberId");
-    	
+    public ResponseEntity<?> getVideoReview(@Auth Long memberId, @PathVariable long videoId, @RequestBody SearchCondition searchCondition){
     	List<ExerciseVideoReview> reviews = reviewService.getByVideoId(videoId);
     	if (reviews == null || reviews.size() == 0)
     		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
@@ -99,11 +90,7 @@ public class ExerciseVideoReviewController {
     
     
     @GetMapping("/{memberId}")
-    public ResponseEntity<?> getMemberReview(HttpSession session, @PathVariable long memberId){
-//    	long memberId = -1;
-    	if (session.getAttribute("memberId") != null)
-    		memberId = (Long)session.getAttribute("memberId");
-    	
+    public ResponseEntity<?> getMemberReview(@PathVariable long memberId){
     	List<ExerciseVideoReview> reviews = reviewService.getByMemberId(memberId);
     	if (reviews == null || reviews.size() == 0)
     		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);

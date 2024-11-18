@@ -4,6 +4,7 @@ import com.heemin.ws.model.dto.place.Place;
 import com.heemin.ws.model.dto.requests.place.PlaceBlock;
 import com.heemin.ws.model.dto.requests.place.PlaceLike;
 import com.heemin.ws.model.service.PlaceService;
+import com.heemin.ws.support.Auth;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,12 +33,9 @@ public class PlaceController {
 	}
 	
 	@PutMapping("/like")
-	public ResponseEntity<?> like(HttpSession session, @RequestBody PlaceLike placeLike){
-		long memberId = -1;
-		if (session.getAttribute("memberId") != null)
-			memberId = (Long)session.getAttribute("memberId");
+	public ResponseEntity<?> like(@Auth Long memberId, @RequestBody PlaceLike placeLike){
 		// 로그인하지 않은 경우 BAD REQUEST로 돌림
-		if (memberId == -1)
+		if (memberId == null)
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
     	
     	if (placeService.setLike(memberId, placeLike.getPlaceId(), placeLike.isLike()))
@@ -47,12 +45,9 @@ public class PlaceController {
 	}
 	
 	@PutMapping("/block")
-    public ResponseEntity<?> block(HttpSession session, @RequestBody PlaceBlock placeBlock){
-    	long memberId = -1;
-		if (session.getAttribute("memberId") != null)
-			memberId = (Long)session.getAttribute("memberId");
+    public ResponseEntity<?> block(@Auth Long memberId, @RequestBody PlaceBlock placeBlock){
 		// 로그인하지 않은 경우 BAD REQUEST로 돌림
-		if (memberId == -1)
+		if (memberId == null)
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
     	
     	if (placeService.setBlock(memberId, placeBlock.getPlaceId(), placeBlock.isBlock()))
