@@ -1,4 +1,4 @@
-package com.ssafy.ssafit.model.dto;
+package com.heemin.ws.model.dto;
 
 public class SearchCondition {
 	private long categoryId;	//영상 검색에 활용할 카테고리 아이디

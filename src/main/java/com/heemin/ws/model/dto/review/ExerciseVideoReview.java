@@ -1,4 +1,4 @@
-package com.ssafy.ssafit.model.dto.review;
+package com.heemin.ws.model.dto.review;
 
 import java.time.LocalDate;
 import java.util.Date;

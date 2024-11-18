@@ -1,134 +1,118 @@
-package com.ssafy.ssafit.model.dto.review;
+package com.heemin.ws.model.dto.video;
 
+import com.heemin.ws.model.dto.category.ExerciseCategory;
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.List;
 
-public class ExerciseVideoReview {
-	private long id;
-	private long memberId;
-	private long exerciseVideoId;
-	private String content;
-	private long likeCnt;
-	private long blockCnt;
-	private boolean liked;		// 해당 리뷰 좋아요 표시 여부
-	private boolean blocked;	// 해당 리뷰 싫어요 표시 여부
-	private int rating;
-	private LocalDate regDate;
-	private LocalDate updateDate;
-	private boolean deleted;
-	
-	public ExerciseVideoReview() {
-		
-	}
-	
-	public ExerciseVideoReview(long memberId, long exerciseVideoId, String content, int rating, boolean deleted) {
-		this.memberId = memberId;
-		this.exerciseVideoId = exerciseVideoId;
-		this.content = content;
-		this.rating = rating;
-		this.deleted = deleted;
-	}
+public class ExerciseVideo {
+    private long id;
+    private String title;
+    private String url;
+    private long viewCnt;
+    private long reviewCnt;
+    private LocalDate regDate;
+    private boolean deleted;
+    private boolean liked;		// 좋아요 표시 여부
+    private boolean blocked;	// 싫어요 표시 여부
+    private List<ExerciseCategory> categories;
 
-	public long getId() {
-		return id;
-	}
+    public ExerciseVideo() {
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    }
 
-	public long getMemberId() {
-		return memberId;
-	}
+    public ExerciseVideo(String title, String url, List<ExerciseCategory> categories) {
+        this.title = title;
+        this.url = url;
+        this.categories = categories;
+    }
 
-	public void setMemberId(long memberId) {
-		this.memberId = memberId;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public long getExerciseVideoId() {
-		return exerciseVideoId;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public void setExerciseVideoId(long exerciseVideoId) {
-		this.exerciseVideoId = exerciseVideoId;
-	}
 
-	public String getContent() {
-		return content;
-	}
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public long getLikeCnt() {
-		return likeCnt;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public void setLikeCnt(long likeCnt) {
-		this.likeCnt = likeCnt;
-	}
+    public String getUrl() {
+        return url;
+    }
 
-	public long getBlockCnt() {
-		return blockCnt;
-	}
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
-	public void setBlockCnt(long blockCnt) {
-		this.blockCnt = blockCnt;
-	}
+    public long getViewCnt() {
+        return viewCnt;
+    }
 
-	public boolean isLiked() {
-		return liked;
-	}
+    public void setViewCnt(long viewCnt) {
+        this.viewCnt = viewCnt;
+    }
 
-	public void setLiked(boolean liked) {
-		this.liked = liked;
-	}
+    public long getReviewCnt() {
+        return reviewCnt;
+    }
 
-	public boolean isBlocked() {
-		return blocked;
-	}
+    public void setReviewCnt(long reviewCnt) {
+        this.reviewCnt = reviewCnt;
+    }
 
-	public void setBlocked(boolean blocked) {
-		this.blocked = blocked;
-	}
+    public LocalDate getRegDate() {
+        return regDate;
+    }
 
-	public int getRating() {
-		return rating;
-	}
+    public void setRegDate(LocalDate regDate) {
+        this.regDate = regDate;
+    }
 
-	public void setRating(int rating) {
-		this.rating = rating;
-	}
+    public boolean isDeleted() {
+        return deleted;
+    }
 
-	public LocalDate getRegDate() {
-		return regDate;
-	}
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
 
-	public void setRegDate(LocalDate regDate) {
-		this.regDate = regDate;
-	}
+    public boolean isLiked() {
+        return liked;
+    }
 
-	public LocalDate getUpdateDate() {
-		return updateDate;
-	}
+    public void setLiked(boolean liked) {
+        this.liked = liked;
+    }
 
-	public void setUpdateDate(LocalDate updateDate) {
-		this.updateDate = updateDate;
-	}
+    public boolean isBlocked() {
+        return blocked;
+    }
 
-	public boolean isDeleted() {
-		return deleted;
-	}
+    public void setBlocked(boolean blocked) {
+        this.blocked = blocked;
+    }
 
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
-	}
+    public List<ExerciseCategory> getCategories() {
+        return categories;
+    }
 
-	@Override
-	public String toString() {
-		return "Review [id=" + id + ", memberId=" + memberId + ", exerciseVideoId=" + exerciseVideoId + ", content="
-				+ content + ", likeCnt=" + likeCnt + ", blockCnt=" + blockCnt + ", rating=" + rating + ", regDate="
-				+ regDate + ", updateDate=" + updateDate + ", deleted=" + deleted + "]";
-	}
+    public void setCategories(List<ExerciseCategory> categories) {
+        this.categories = categories;
+    }
+
+    @Override
+    public String toString() {
+        return "Video [id=" + id + ", title=" + title + ", url=" + url + ", viewCnt=" + viewCnt + ", reviewCnt="
+                + reviewCnt + ", regDate=" + regDate + ", deleted=" + deleted + ", liked=" + liked + ", categories="
+                + categories + "]";
+    }
 }
+

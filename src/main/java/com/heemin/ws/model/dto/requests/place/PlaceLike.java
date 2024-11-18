@@ -1,4 +1,4 @@
-package com.ssafy.ssafit.model.dto.requests.place;
+package com.heemin.ws.model.dto.requests.place;
 
 public class PlaceLike {
 	private long placeId;

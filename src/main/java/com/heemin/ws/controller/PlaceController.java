@@ -1,5 +1,10 @@
-package com.ssafy.ssafit.controller;
+package com.heemin.ws.controller;
 
+import com.heemin.ws.model.dto.place.Place;
+import com.heemin.ws.model.dto.requests.place.PlaceBlock;
+import com.heemin.ws.model.dto.requests.place.PlaceLike;
+import com.heemin.ws.model.service.PlaceService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,13 +13,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.heemin.ws.model.dto.Place;
-import com.heemin.ws.model.dto.requests.place.PlaceBlock;
-import com.heemin.ws.model.dto.requests.place.PlaceLike;
-import com.heemin.ws.model.service.PlaceService;
-
-import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/api/places")

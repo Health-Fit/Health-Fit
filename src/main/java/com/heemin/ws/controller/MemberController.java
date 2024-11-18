@@ -1,5 +1,8 @@
-package com.ssafy.ssafit.controller;
+package com.heemin.ws.controller;
 
+import com.heemin.ws.model.dto.member.Member;
+import com.heemin.ws.model.service.MemberService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,11 +11,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.heemin.ws.model.dto.Member;
-import com.heemin.ws.model.service.MemberService;
-
-import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("api/members")

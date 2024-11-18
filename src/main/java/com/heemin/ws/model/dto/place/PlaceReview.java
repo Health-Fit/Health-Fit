@@ -1,4 +1,4 @@
-package com.ssafy.ssafit.model.dto.place;
+package com.heemin.ws.model.dto.place;
 
 import java.time.LocalDate;
 import java.util.Date;
