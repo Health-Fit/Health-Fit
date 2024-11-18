@@ -1,12 +1,15 @@
 package com.heemin.ws.controller;
 
 import com.heemin.ws.model.dto.member.Member;
+import com.heemin.ws.model.dto.member.SignupInfo;
 import com.heemin.ws.model.service.MemberService;
+import com.heemin.ws.support.Auth;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,5 +47,10 @@ public class MemberController {
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		else
 			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	@PostMapping
+	public ResponseEntity<?> setup(@RequestBody SignupInfo info, @Auth Long memberId) {
+		return memberService.setup(info, memberId).getResponse();
 	}
 }

@@ -11,4 +11,13 @@
   		SELECT * FROM exercise_category
   		WHERE id = (SELECT exercise_category_id FROM exercise_video_category WHERE exercise_video_id = #{videoId});
   	</select>
+
+	<insert id="insertMemberCategory" parameterType="map">
+		INSERT INTO member_exercise_category (member_id, exercise_category_id)
+		VALUES
+		<foreach collection="categories" item="category" separator=",">
+			(#{member}, #{category})
+		</foreach>
+	</insert>
+
 </mapper>
