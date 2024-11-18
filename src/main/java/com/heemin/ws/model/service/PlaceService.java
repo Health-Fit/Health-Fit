@@ -1,7 +1,7 @@
-package com.ssafy.ssafit.model.service;
+package com.heemin.ws.model.service;
 
-import com.ssafy.ssafit.model.dao.PlaceDao;
-import com.ssafy.ssafit.model.dto.place.Place;
+import com.heemin.ws.model.dao.PlaceDao;
+import com.heemin.ws.model.dto.place.Place;
 
 public class PlaceService {
 	PlaceDao placeDao;

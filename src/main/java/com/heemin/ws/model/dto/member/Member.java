@@ -15,7 +15,7 @@ public class Member {
     private boolean deleted;
     private LocalDate deleteDate;
     private LocalDate regDate;
-    private int memberAuth;
+    private int memberAuthId;
 
     public long getId() {
         return id;
@@ -105,11 +105,11 @@ public class Member {
         this.regDate = regDate;
     }
 
-    public int getMemberAuth() {
-        return memberAuth;
+    public int getMemberAuthId() {
+        return memberAuthId;
     }
 
-    public void setMemberAuth(int memberAuth) {
-        this.memberAuth = memberAuth;
+    public void setMemberAuthId(int memberAuthId) {
+        this.memberAuthId = memberAuthId;
     }
 }

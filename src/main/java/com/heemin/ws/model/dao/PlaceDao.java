@@ -1,8 +1,7 @@
 package com.heemin.ws.model.dao;
 
+import com.heemin.ws.model.dto.place.Place;
 import org.apache.ibatis.annotations.Param;
-
-import com.heemin.ws.model.dto.Place;
 
 public interface PlaceDao {
 	Place selectById(long id);

@@ -1,4 +1,4 @@
-package com.ssafy.ssafit.model.dto.place;
+package com.heemin.ws.model.dto.place;
 
 public class Place {
 	private long id;

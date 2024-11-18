@@ -1,4 +1,4 @@
-package com.ssafy.ssafit.model.dto.requests.review;
+package com.heemin.ws.model.dto.requests.review;
 
 public class ExerciseReviewBlock {
 	private long reviewId;

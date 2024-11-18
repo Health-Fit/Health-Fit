@@ -1,4 +1,4 @@
-package com.ssafy.ssafit.model.dto.requests.video;
+package com.heemin.ws.model.dto.requests.video;
 
 public class VideoLike {
 	private long videoId;

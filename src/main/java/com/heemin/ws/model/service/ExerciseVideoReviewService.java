@@ -1,13 +1,11 @@
-package com.ssafy.ssafit.model.service;
+package com.heemin.ws.model.service;
 
+import com.heemin.ws.exception.ForbiddenException;
+import com.heemin.ws.model.dao.ExerciseVideoReviewDao;
+import com.heemin.ws.model.dto.review.ExerciseVideoReview;
 import java.time.LocalDate;
 import java.util.List;
-
 import org.springframework.stereotype.Service;
-
-import com.ssafy.ssafit.exception.ForbiddenException;
-import com.ssafy.ssafit.model.dao.ExerciseVideoReviewDao;
-import com.ssafy.ssafit.model.dto.review.ExerciseVideoReview;
 
 @Service
 public class ExerciseVideoReviewService {

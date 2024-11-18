@@ -1,9 +1,8 @@
-package com.ssafy.ssafit.model.service;
+package com.heemin.ws.model.service;
 
+import com.heemin.ws.model.dao.PlaceReviewDao;
+import com.heemin.ws.model.dto.place.PlaceReview;
 import java.util.List;
-
-import com.ssafy.ssafit.model.dao.PlaceReviewDao;
-import com.ssafy.ssafit.model.dto.place.PlaceReview;
 
 public class PlaceReviewService {
 	PlaceReviewDao placeReviewDao;

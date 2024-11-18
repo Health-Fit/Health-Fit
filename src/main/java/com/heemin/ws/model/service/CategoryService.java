@@ -1,11 +1,9 @@
-package com.ssafy.ssafit.model.service;
+package com.heemin.ws.model.service;
 
+import com.heemin.ws.model.dao.CategoryDao;
+import com.heemin.ws.model.dto.category.ExerciseCategory;
 import java.util.List;
-
 import org.springframework.stereotype.Service;
-
-import com.ssafy.ssafit.model.dao.CategoryDao;
-import com.ssafy.ssafit.model.dto.category.ExerciseCategory;
 
 @Service
 public class CategoryService {

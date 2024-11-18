@@ -1,5 +1,9 @@
-package com.ssafy.ssafit.controller;
+package com.heemin.ws.controller;
 
+import com.heemin.ws.model.dto.member.Member;
+import com.heemin.ws.model.dto.video.ExerciseVideo;
+import com.heemin.ws.model.service.ExerciseVideoReviewService;
+import com.heemin.ws.model.service.ExerciseVideoService;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -29,15 +33,16 @@ import jakarta.servlet.http.HttpSession;
 public class ExerciseVideoController {
 	
 	MemberService memberService;
-	VideoService videoService;
-	VideoReviewService reviewService;
-	
-	public ExerciseVideoController(MemberService memberService, VideoService videoService, VideoReviewService reviewService) {
+	ExerciseVideoService videoService;
+	ExerciseVideoReviewService reviewService;
+
+	public ExerciseVideoController(MemberService memberService, ExerciseVideoService videoService,
+								   ExerciseVideoReviewService reviewService) {
 		this.memberService = memberService;
 		this.videoService = videoService;
 		this.reviewService = reviewService;
 	}
-	
+
 	// 운동 영상 목록 조회 ( + 검색)
 	@PostMapping("")
 	public ResponseEntity<?> getList(@RequestBody SearchCondition searchCondition, HttpSession session){
@@ -46,17 +51,17 @@ public class ExerciseVideoController {
 			memberId = (Long)session.getAttribute("memberId");
 		
 		// 유저 정보를 넣어서 유저가 좋아요 표시를 했는지 받아오기
-		List<Video> videos = videoService.getVideoByCondition(memberId, searchCondition);
+		List<ExerciseVideo> videos = videoService.getVideoByCondition(memberId, searchCondition);
 		if (videos == null || videos.size() == 0)
 			return new ResponseEntity<String>("등록된 비디오 영상 자료가 없습니다.", HttpStatus.NOT_FOUND);
-		return new ResponseEntity<List<Video>>(videos, HttpStatus.OK);
+		return new ResponseEntity<List<ExerciseVideo>>(videos, HttpStatus.OK);
 	}
 	
 	// 회원가입시 사용할 샘플 비디오 목록 반환
 	@GetMapping("/ex")
 	public ResponseEntity<?> getExample(){
-		List<Video> videos = videoService.getVideoSample();
-		return new ResponseEntity<List<Video>>(videos, HttpStatus.OK);
+		List<ExerciseVideo> videos = videoService.getVideoSample();
+		return new ResponseEntity<List<ExerciseVideo>>(videos, HttpStatus.OK);
 	}
 	
 	/**
@@ -72,10 +77,10 @@ public class ExerciseVideoController {
 		if (session.getAttribute("memberId") != null)
 		memberId = (Long)session.getAttribute("memberId");
 		
-		Video video = videoService.getVideoById(id, memberId);
+		ExerciseVideo video = videoService.getVideoById(id, memberId);
 		if (video == null)
 			return new ResponseEntity<String>("등록된 비디오 영상 자료가 없습니다.", HttpStatus.NOT_FOUND);
-		return new ResponseEntity<Video>(video, HttpStatus.OK);
+		return new ResponseEntity<ExerciseVideo>(video, HttpStatus.OK);
 	}
 	
 	// 사용자 권한에 따른 영상정보 삭제
@@ -138,11 +143,11 @@ public class ExerciseVideoController {
 		if (memberId == -1)
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 		
-		List<Video> videos = videoService.getVideoByLike(memberId);
+		List<ExerciseVideo> videos = videoService.getVideoByLike(memberId);
 		if (videos == null)
 			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
 		else
-			return new ResponseEntity<List<Video>>(videos, HttpStatus.OK);
+			return new ResponseEntity<List<ExerciseVideo>>(videos, HttpStatus.OK);
 			
 	}
 	
@@ -152,10 +157,10 @@ public class ExerciseVideoController {
 		if (session.getAttribute("memberId") != null)
 			curId = (Long)session.getAttribute("memberId");
 		
-		List<Video> videos = videoService.getVideoByLike(memberId);
+		List<ExerciseVideo> videos = videoService.getVideoByLike(memberId);
 		if (videos == null)
 			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
 		else
-			return new ResponseEntity<List<Video>>(videos, HttpStatus.OK);
+			return new ResponseEntity<List<ExerciseVideo>>(videos, HttpStatus.OK);
 	}
 }

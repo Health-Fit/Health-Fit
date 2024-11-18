@@ -1,9 +1,7 @@
-package com.ssafy.ssafit.model.dto.requests.video;
+package com.heemin.ws.model.dto.requests.video;
 
+import com.heemin.ws.model.dto.video.ExerciseVideo;
 import java.util.List;
-
-import com.ssafy.ssafit.model.dto.review.ExerciseVideoReview;
-import com.ssafy.ssafit.model.dto.video.ExerciseVideo;
 
 public class VideoReview {
 	private ExerciseVideo video;

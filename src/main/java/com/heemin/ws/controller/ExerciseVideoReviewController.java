@@ -1,7 +1,12 @@
-package com.ssafy.ssafit.controller;
+package com.heemin.ws.controller;
 
+import com.heemin.ws.model.dto.SearchCondition;
+import com.heemin.ws.model.dto.requests.review.ExerciseReviewBlock;
+import com.heemin.ws.model.dto.requests.review.ExerciseReviewLike;
+import com.heemin.ws.model.dto.review.ExerciseVideoReview;
+import com.heemin.ws.model.service.ExerciseVideoReviewService;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,27 +18,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.heemin.ws.model.dto.ExerciseReview;
-import com.heemin.ws.model.dto.SearchCondition;
-import com.heemin.ws.model.dto.requests.review.ExerciseReviewBlock;
-import com.heemin.ws.model.dto.requests.review.ExerciseReviewLike;
-import com.heemin.ws.model.service.VideoReviewService;
-
-import jakarta.servlet.http.HttpSession;
-
 @RestController
 @RequestMapping("/api/reviews")
 public class ExerciseVideoReviewController {
 
-    private final VideoReviewService reviewService;
+    private final ExerciseVideoReviewService reviewService;
 
-    public ExerciseVideoReviewController(VideoReviewService reviewService) {
+    public ExerciseVideoReviewController(ExerciseVideoReviewService reviewService) {
         this.reviewService = reviewService;
     }
 
     // 리뷰 생성하기 기능
     @PostMapping("")
-    public ResponseEntity<?> create(@RequestBody ExerciseReview review) {
+    public ResponseEntity<?> create(@RequestBody ExerciseVideoReview review) {
         reviewService.add(review);
         
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -49,7 +46,7 @@ public class ExerciseVideoReviewController {
 
     // 리뷰 수정하기 기능
     @PutMapping("")
-    public ResponseEntity<?> update(@RequestBody ExerciseReview review) {
+    public ResponseEntity<?> update(@RequestBody ExerciseVideoReview review) {
         reviewService.update(review);
         
         return ResponseEntity.ok().build();
@@ -94,23 +91,23 @@ public class ExerciseVideoReviewController {
     	if (session.getAttribute("memberId") != null)
     		memberId = (Long)session.getAttribute("memberId");
     	
-    	List<ExerciseReview> reviews = reviewService.getByVideoId(videoId);
+    	List<ExerciseVideoReview> reviews = reviewService.getByVideoId(videoId);
     	if (reviews == null || reviews.size() == 0)
     		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-    	return new ResponseEntity<List<ExerciseReview>>(reviews, HttpStatus.OK);
+    	return new ResponseEntity<List<ExerciseVideoReview>>(reviews, HttpStatus.OK);
     }
     
     
     @GetMapping("/{memberId}")
     public ResponseEntity<?> getMemberReview(HttpSession session, @PathVariable long memberId){
-    	long memberId = -1;
+//    	long memberId = -1;
     	if (session.getAttribute("memberId") != null)
     		memberId = (Long)session.getAttribute("memberId");
     	
-    	List<ExerciseReview> reviews = reviewService.getByMemberId(memberId);
+    	List<ExerciseVideoReview> reviews = reviewService.getByMemberId(memberId);
     	if (reviews == null || reviews.size() == 0)
     		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-    	return new ResponseEntity<List<ExerciseReview>>(reviews, HttpStatus.OK);
+    	return new ResponseEntity<List<ExerciseVideoReview>>(reviews, HttpStatus.OK);
     }
     
 }

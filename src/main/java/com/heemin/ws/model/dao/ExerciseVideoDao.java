@@ -1,28 +1,26 @@
 package com.heemin.ws.model.dao;
 
+import com.heemin.ws.model.dto.SearchCondition;
+import com.heemin.ws.model.dto.video.ExerciseVideo;
 import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 
-import com.heemin.ws.model.dto.SearchCondition;
-import com.heemin.ws.model.dto.Video;
-
 public interface ExerciseVideoDao {
-	Video selectById(long id);
+	ExerciseVideo selectById(long id);
 	int updateViewCnt(long id);
 
-	List<Video> selectSample();
+	List<ExerciseVideo> selectSample();
 
-	List<Video> selectAll();
+	List<ExerciseVideo> selectAll();
 
-	List<Video> selectByCondition(SearchCondition condtion);
+	List<ExerciseVideo> selectByCondition(SearchCondition condtion);
 
-	List<Video> selectByCategory(int categoryId);
+	List<ExerciseVideo> selectByCategory(int categoryId);
 
-	List<Video> selectOrderByViewCnt();
+	List<ExerciseVideo> selectOrderByViewCnt();
 	
 	// 해당 멤버가 좋아요 표시한 영상만 받아오기
-	List<Video> selectByLike(long memberId);
+	List<ExerciseVideo> selectByLike(long memberId);
 
 	int insertLike(@Param("memberId") long memberId, @Param("videoId") long videoId);
 	int deleteLike(@Param("memberId") long memberId, @Param("videoId") long videoId);

@@ -1,14 +1,11 @@
-package com.ssafy.ssafit.model.service;
+package com.heemin.ws.model.service;
 
+import com.heemin.ws.model.dao.CategoryDao;
+import com.heemin.ws.model.dao.ExerciseVideoDao;
+import com.heemin.ws.model.dto.SearchCondition;
+import com.heemin.ws.model.dto.video.ExerciseVideo;
 import java.util.List;
-
 import org.springframework.stereotype.Service;
-
-import com.ssafy.ssafit.model.dao.CategoryDao;
-import com.ssafy.ssafit.model.dao.ExerciseVideoDao;
-import com.ssafy.ssafit.model.dto.Response;
-import com.ssafy.ssafit.model.dto.SearchCondition;
-import com.ssafy.ssafit.model.dto.video.ExerciseVideo;
 
 @Service
 public class ExerciseVideoService {
