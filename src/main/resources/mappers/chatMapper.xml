@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heemin.ws.model.dao.ChatDao">
+    <insert id="insert" parameterType="Chat">
+        INSERT INTO exercise_video_chat_message (exercise_video_id, member_id, message, send_at)
+        VALUES (#{exerciseVideoId}, #{memberId}, #{message}, #{sendAt});
+    </insert>
+
+    <select id="selectByExerciseVideoId" parameterType="map" resultType="Chat">
+        SELECT * FROM exercise_video_chat_message
+        WHERE exercise_video_id=#{exerciseVideoId} AND sent_at >= #{time} ORDER BY sent_at;
+    </select>
+</mapper>

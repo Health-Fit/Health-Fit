@@ -21,4 +21,8 @@ public class Response {
     public ResponseEntity<?> getResponse() {
         return ResponseEntity.status(this.status).body(data);
     }
+
+    public boolean hasData() {
+        return this.data != null;
+    }
 }
