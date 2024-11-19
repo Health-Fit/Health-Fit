@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Param;
 
 public interface ChatDao {
     int insert(Chat chat);
-
     List<Chat> selectByExerciseVideoId(@Param("exerciseVideoId") long exerciseVideoId,
                                        @Param("time") LocalDateTime time);
 }
