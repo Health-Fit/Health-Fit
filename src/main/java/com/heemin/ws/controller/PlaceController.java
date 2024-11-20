@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.NativeWebRequest;
+
+import static com.heemin.ws.controller.MemberManager.getMemberId;
 
 @RestController
 @RequestMapping("/api/places")
@@ -25,7 +28,8 @@ public class PlaceController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<?> getById(@PathVariable long id){
+	public ResponseEntity<?> getById(@PathVariable long id, NativeWebRequest webRequest){
+		long memberId = getMemberId(webRequest);
 		Place place = placeService.getById(id);
 		if (place == null)
 			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);

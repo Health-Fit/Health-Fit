@@ -1,21 +1,21 @@
 package com.heemin.ws.model.dto.requests.review;
 
 public class ExerciseReviewLike {
-	private long reviewId;
+	private long id;
 	private boolean like;
 	public ExerciseReviewLike() {
 	
 	}
-	public ExerciseReviewLike(long reviewId, boolean like) {
+	public ExerciseReviewLike(long id, boolean like) {
 		super();
-		this.reviewId = reviewId;
+		this.id = id;
 		this.like = like;
 	}
-	public long getReviewId() {
-		return reviewId;
+	public long getId() {
+		return id;
 	}
-	public void setReviewId(long reviewId) {
-		this.reviewId = reviewId;
+	public void setId(long id) {
+		this.id = id;
 	}
 	public boolean isLike() {
 		return like;
@@ -25,7 +25,7 @@ public class ExerciseReviewLike {
 	}
 	@Override
 	public String toString() {
-		return "ExerciseReviewLike [reviewId=" + reviewId + ", like=" + like + "]";
+		return "ExerciseReviewLike [reviewId=" + id + ", like=" + like + "]";
 	}
 	
 }

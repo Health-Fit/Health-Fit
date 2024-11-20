@@ -1,6 +1,7 @@
 package com.heemin.ws.model.dto.place;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class PlaceReview {
@@ -13,8 +14,8 @@ public class PlaceReview {
 	private boolean liked;
 	private boolean  blocked;
 	private int rating;
-	private LocalDate regDate;
-	private LocalDate updateDate;
+	private LocalDateTime regDate;
+	private LocalDateTime updateDate;
 	private boolean deleted;
 	
 	public PlaceReview() {
@@ -22,7 +23,7 @@ public class PlaceReview {
 	}
 
 	public PlaceReview(long id, long memberId, long exercisePlaceId, String content, long likeCnt, long blockCnt,
-			boolean liked, boolean blocked, int rating, LocalDate regDate, LocalDate updateDate, boolean deleted) {
+			boolean liked, boolean blocked, int rating, LocalDateTime regDate, LocalDateTime updateDate, boolean deleted) {
 		super();
 		this.id = id;
 		this.memberId = memberId;
@@ -110,19 +111,19 @@ public class PlaceReview {
 		this.rating = rating;
 	}
 
-	public LocalDate getRegDate() {
+	public LocalDateTime getRegDate() {
 		return regDate;
 	}
 
-	public void setRegDate(LocalDate regDate) {
+	public void setRegDate(LocalDateTime regDate) {
 		this.regDate = regDate;
 	}
 
-	public LocalDate getUpdateDate() {
+	public LocalDateTime getUpdateDate() {
 		return updateDate;
 	}
 
-	public void setUpdateDate(LocalDate updateDate) {
+	public void setUpdateDate(LocalDateTime updateDate) {
 		this.updateDate = updateDate;
 	}
 

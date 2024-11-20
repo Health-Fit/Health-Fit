@@ -9,6 +9,7 @@ import com.heemin.ws.model.service.ExerciseVideoReviewService;
 import com.heemin.ws.model.service.ExerciseVideoService;
 import com.heemin.ws.model.service.MemberService;
 import com.heemin.ws.support.Auth;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 import java.sql.Array;
@@ -24,6 +25,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.NativeWebRequest;
+
+import static com.heemin.ws.controller.MemberManager.getMemberId;
 
 @RestController
 @RequestMapping("/api/videos")
@@ -58,15 +62,12 @@ public class ExerciseVideoController {
 		return new ResponseEntity<List<ExerciseVideo>>(videos, HttpStatus.OK);
 	}
 	
-	/**
-	 * 영상 상세정보를 받기 위해 신청할 수 있는 API
-	 * 
-	 * @param id 받고자 하는 영상 상세정보 id
-	 * @param session 세션 정보를 받아오기
-	 * @return 영상 상세 정보 반환
-	 */
+	//영상 상세정보를 받기 위한 API
 	@GetMapping("/{id}")
-	public ResponseEntity<?> getDetail(@PathVariable long id, @Auth Long memberId){
+	public ResponseEntity<?> getDetail(@PathVariable long id, NativeWebRequest webRequest){
+		// 현재 로그인한 멤버 id 받아오기
+		long memberId = getMemberId(webRequest);
+
 		ExerciseVideo video = videoService.getVideoById(id, memberId);
 		System.out.println(video);
 		if (video == null)
@@ -76,14 +77,17 @@ public class ExerciseVideoController {
 	
 	// 사용자 권한에 따른 영상정보 삭제
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> remove(@Auth Long memberId, @PathVariable long id){
+	public ResponseEntity<?> remove(@PathVariable long id, NativeWebRequest webRequest){
 		// 현재 로그인 정보가 없는 경우 권한없음 표시
-		if (memberId == null)
+		long memberId = getMemberId(webRequest);
+		// 로그인이 안되어있는 경우 권한 없음으로 표시
+		if (memberId == -1)
 			return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
 
+		// 현재 로그인한 관리자 정보 받아오기
 		Member curMem = memberService.getById(memberId);
 		// 관리자가 아닌 경우 authorized 되지 않았음을 보내줌
-		if (curMem == null || curMem.getMemberAuthId() != 0)
+		if (curMem == null || curMem.getMemberAuthId() != 1)
 			return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
 
 		// 제대로 삭제되었는지 여부 보여줌
@@ -94,11 +98,14 @@ public class ExerciseVideoController {
 	
 	// 영상 좋아요 관리 API
 	@PutMapping("/like")
-	public ResponseEntity<?> setLike(@Auth Long memberId, @RequestBody VideoLike videoLike){
+	public ResponseEntity<?> setLike(@RequestBody VideoLike videoLike, NativeWebRequest webRequest){
+		long memberId = getMemberId(webRequest);
+
 		// 로그인하지 않은 경우 BAD REQUEST로 돌림
-		if (memberId == null)
+		if (memberId == -1)
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-		
+
+		// 현재 로그인한 유저 memberId로 영상 좋아요 표시
 		if (videoService.setVideoLike(memberId, videoLike.getVideoId(), videoLike.isLike()))
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		else
@@ -107,12 +114,14 @@ public class ExerciseVideoController {
 	
 	// 영상 싫어요 관리 API
 	@PutMapping("/block")
-	public ResponseEntity<?> setBlock(@Auth Long memberId, @RequestBody VideoBlock videoBlock){
+	public ResponseEntity<?> setBlock(@RequestBody VideoBlock videoBlock, NativeWebRequest webRequest){
+		long memberId = getMemberId(webRequest);
 		// 로그인하지 않은 경우 BAD REQUEST로 돌림
-		if (memberId == null)
+		if (memberId == -1)
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-		
-		if (videoService.setVideoLike(memberId, videoBlock.getVideoId(), videoBlock.isBlock()))
+
+		// 현재 로그인한 정보로 영상 싫어요 표시
+		if (videoService.setVideoBlock(memberId, videoBlock.getVideoId(), videoBlock.isBlock()))
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		else
 			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -120,25 +129,37 @@ public class ExerciseVideoController {
 	
 	// 본인이 찜한 영상 받아오기
 	@GetMapping("/like")
-	public ResponseEntity<?> getMyLikeList(@Auth Long memberId){
+	public ResponseEntity<?> getMyLikeList(NativeWebRequest webRequest){
+		long memberId = getMemberId(webRequest);
 		// 로그인하지 않은 경우 BAD REQUEST로 돌림
-		if (memberId == null)
+		if (memberId == -1)
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-		
+
+		// 현재 로그인한 정보를 토대로 찜한 영상 받아오기
 		List<ExerciseVideo> videos = videoService.getVideoByLike(memberId);
-		if (videos == null)
-			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+		if (videos == null || videos.isEmpty())
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		else
 			return new ResponseEntity<List<ExerciseVideo>>(videos, HttpStatus.OK);
 			
 	}
-	
+
+	// 지정한 멤버가 찜한 영상 받아오기
 	@GetMapping("/like/{memberId}")
 	public ResponseEntity<?> getMemberLikeList(@PathVariable long memberId){
 		List<ExerciseVideo> videos = videoService.getVideoByLike(memberId);
-		if (videos == null)
+		if (videos == null || videos.isEmpty())
 			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
 		else
 			return new ResponseEntity<List<ExerciseVideo>>(videos, HttpStatus.OK);
 	}
+
+//	public long getMemberId(NativeWebRequest webRequest){
+//		HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
+//		Object loginMember = request.getAttribute("memberId");
+//		long memberId = -1;
+//		if (loginMember != null)
+//			memberId = Long.valueOf(loginMember.toString());
+//		return memberId;
+//	}
 }
