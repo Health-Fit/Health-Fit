@@ -10,11 +10,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class FilterConfig {
 
-    /*@Bean
+    @Bean
     public FilterRegistrationBean<Filter> jwtFilter(ObjectMapper objectMapper) {
         FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
         filterRegistrationBean.setFilter(new JwtAuthorizationFilter(objectMapper));
         filterRegistrationBean.setOrder(1);
         return filterRegistrationBean;
-    }*/
+    }
 }

@@ -5,8 +5,6 @@ import com.heemin.ws.model.dto.requests.review.ExerciseReviewBlock;
 import com.heemin.ws.model.dto.requests.review.ExerciseReviewLike;
 import com.heemin.ws.model.dto.review.ExerciseVideoReview;
 import com.heemin.ws.model.service.ExerciseVideoReviewService;
-import com.heemin.ws.support.Auth;
-import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +31,7 @@ public class ExerciseVideoReviewController {
     @PostMapping("")
     public ResponseEntity<?> create(@RequestBody ExerciseVideoReview review) {
         reviewService.add(review);
-        
+
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
@@ -41,7 +39,7 @@ public class ExerciseVideoReviewController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> remove(@PathVariable("id") long id) {
         reviewService.remove(id);
-        
+
         return ResponseEntity.ok().build();
     }
 
@@ -49,52 +47,59 @@ public class ExerciseVideoReviewController {
     @PutMapping("")
     public ResponseEntity<?> update(@RequestBody ExerciseVideoReview review) {
         reviewService.update(review);
-        
+
         return ResponseEntity.ok().build();
     }
-    
+
     // 리뷰 좋아요 기능
     @PutMapping("/like")
-    public ResponseEntity<?> like(@Auth Long memberId, @RequestBody ExerciseReviewLike exerciseReviewLike){
-		// 로그인하지 않은 경우 BAD REQUEST로 돌림
-		if (memberId == null)
-			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-    	
-    	if (reviewService.setReviewLike(memberId, exerciseReviewLike.getReviewId(), exerciseReviewLike.isLike()))
-    		return new ResponseEntity<Void>(HttpStatus.OK);
-    	else
-    		return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<?> like(Long memberId, @RequestBody ExerciseReviewLike exerciseReviewLike) {
+        // 로그인하지 않은 경우 BAD REQUEST로 돌림
+        if (memberId == null) {
+            return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+        }
+
+        if (reviewService.setReviewLike(memberId, exerciseReviewLike.getReviewId(), exerciseReviewLike.isLike())) {
+            return new ResponseEntity<Void>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
-    
+
     // 리뷰 신고하기 기능
     @PutMapping("/block")
-    public ResponseEntity<?> block(@Auth Long memberId, @RequestBody ExerciseReviewBlock exerciseReviewBlock){
-		// 로그인하지 않은 경우 BAD REQUEST로 돌림
-		if (memberId == null)
-			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-    	
-    	if (reviewService.setReviewBlock(memberId, exerciseReviewBlock.getReviewId(), exerciseReviewBlock.isBlock()))
-    		return new ResponseEntity<Void>(HttpStatus.OK);
-    	else
-    		return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<?> block(Long memberId, @RequestBody ExerciseReviewBlock exerciseReviewBlock) {
+        // 로그인하지 않은 경우 BAD REQUEST로 돌림
+        if (memberId == null) {
+            return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+        }
+
+        if (reviewService.setReviewBlock(memberId, exerciseReviewBlock.getReviewId(), exerciseReviewBlock.isBlock())) {
+            return new ResponseEntity<Void>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
-    
+
     // 비디오 아이디로 리뷰 받아오기
     @PostMapping("/{videoId}")
-    public ResponseEntity<?> getVideoReview(@Auth Long memberId, @PathVariable long videoId, @RequestBody SearchCondition searchCondition){
-    	List<ExerciseVideoReview> reviews = reviewService.getByVideoId(videoId);
-    	if (reviews == null || reviews.size() == 0)
-    		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-    	return new ResponseEntity<List<ExerciseVideoReview>>(reviews, HttpStatus.OK);
+    public ResponseEntity<?> getVideoReview(Long memberId, @PathVariable long videoId,
+                                            @RequestBody SearchCondition searchCondition) {
+        List<ExerciseVideoReview> reviews = reviewService.getByVideoId(videoId);
+        if (reviews == null || reviews.size() == 0) {
+            return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<ExerciseVideoReview>>(reviews, HttpStatus.OK);
     }
-    
-    
+
+
     @GetMapping("/{memberId}")
-    public ResponseEntity<?> getMemberReview(@PathVariable long memberId){
-    	List<ExerciseVideoReview> reviews = reviewService.getByMemberId(memberId);
-    	if (reviews == null || reviews.size() == 0)
-    		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-    	return new ResponseEntity<List<ExerciseVideoReview>>(reviews, HttpStatus.OK);
+    public ResponseEntity<?> getMemberReview(@PathVariable long memberId) {
+        List<ExerciseVideoReview> reviews = reviewService.getByMemberId(memberId);
+        if (reviews == null || reviews.size() == 0) {
+            return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<ExerciseVideoReview>>(reviews, HttpStatus.OK);
     }
-    
+
 }

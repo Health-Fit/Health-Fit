@@ -3,7 +3,6 @@ package com.heemin.ws.controller;
 import com.heemin.ws.model.dto.Response;
 import com.heemin.ws.model.dto.chat.Chat;
 import com.heemin.ws.model.service.ChatService;
-import com.heemin.ws.support.Auth;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -50,10 +49,9 @@ public class ChatController {
     }
 
     @PostMapping("/{videoId}")
-    public ResponseEntity<?> send(@RequestBody Chat chat, @PathVariable long videoId,
-                                  @Auth Long memberId) {
+    public ResponseEntity<?> send(@RequestBody Chat chat, @PathVariable long videoId) {
 
-        chatService.send(memberId, videoId, chat);
+        chatService.send(chat.getMemberId(), videoId, chat);
 
         // 해당 운동 영상에 채팅이 올라오면, 대기하고 있는 deferredResult 반환시키기
         for (var entry : chatRequests.entrySet()) {
