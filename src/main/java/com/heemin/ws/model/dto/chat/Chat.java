@@ -8,7 +8,7 @@ public class Chat {
     private long exerciseVideoId;
     private long memberId;
     private String message;
-    private LocalDateTime sendAt;
+    private LocalDateTime sentAt;
 
     public long getId() {
         return id;
@@ -42,11 +42,11 @@ public class Chat {
         this.message = message;
     }
 
-    public LocalDateTime getSendAt() {
-        return sendAt;
+    public LocalDateTime getSentAt() {
+        return sentAt;
     }
 
-    public void setSendAt(LocalDateTime sendAt) {
-        this.sendAt = sendAt;
+    public void setSentAt(LocalDateTime sentAt) {
+        this.sentAt = sentAt;
     }
 }
