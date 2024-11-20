@@ -2,6 +2,7 @@ package com.heemin.ws.controller;
 
 import com.heemin.ws.model.dto.auth.Jwt;
 import com.heemin.ws.model.service.auth.AuthService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +21,7 @@ public class AuthController {
         this.authService = authService;
     }
 
-    @GetMapping ("/login/{type}")
+    @GetMapping("/login/{type}")
     public ResponseEntity<?> login(@PathVariable String type, @RequestParam String code) {
         return authService.login(type, code).getResponse();
     }
@@ -28,5 +29,10 @@ public class AuthController {
     @PostMapping("/access-token")
     public ResponseEntity<?> reissueAccessToken(@RequestBody Jwt jwt) {
         return authService.reissueAccessToken(jwt).getResponse();
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletRequest request, long memberId) {
+        return authService.logout(request, memberId).getResponse();
     }
 }

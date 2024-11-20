@@ -9,7 +9,9 @@ import com.heemin.ws.model.dto.member.Member;
 import com.heemin.ws.model.service.auth.requester.OauthRequester;
 import com.heemin.ws.model.service.auth.requester.OauthRequesterFactory;
 import io.jsonwebtoken.Claims;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.Map;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,13 +21,15 @@ public class AuthService {
     private final MemberDao memberDao;
     private final JwtProvider jwtProvider;
     private final OauthRequesterFactory oauthRequesterFactory;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     public AuthService(AuthDao authDao, MemberDao memberDao, JwtProvider jwtProvider,
-                       OauthRequesterFactory oauthRequesterFactory) {
+                       OauthRequesterFactory oauthRequesterFactory, RedisTemplate<String, Object> redisTemplate) {
         this.authDao = authDao;
         this.memberDao = memberDao;
         this.jwtProvider = jwtProvider;
         this.oauthRequesterFactory = oauthRequesterFactory;
+        this.redisTemplate = redisTemplate;
     }
 
     @Transactional
@@ -65,7 +69,11 @@ public class AuthService {
     }
 
     @Transactional
-    public Response logout(long memberId) {
+    public Response logout(HttpServletRequest request, long memberId) {
+        JwtExtractor.extract(request).ifPresent(token -> {
+            long expiration = jwtProvider.getAccessTokenExpiration(token);
+            redisTemplate.opsForValue().set(token, "logout", expiration);
+        });
         authDao.deleteRefreshToken(memberId);
         return new Response(200);
     }
