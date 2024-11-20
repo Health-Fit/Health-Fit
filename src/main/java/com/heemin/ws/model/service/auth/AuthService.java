@@ -11,6 +11,7 @@ import com.heemin.ws.model.service.auth.requester.OauthRequesterFactory;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -72,7 +73,7 @@ public class AuthService {
     public Response logout(HttpServletRequest request, long memberId) {
         JwtExtractor.extract(request).ifPresent(token -> {
             long expiration = jwtProvider.getAccessTokenExpiration(token);
-            redisTemplate.opsForValue().set(token, "logout", expiration);
+            redisTemplate.opsForValue().set(token, "logout", expiration, TimeUnit.MILLISECONDS);
         });
         authDao.deleteRefreshToken(memberId);
         return new Response(200);

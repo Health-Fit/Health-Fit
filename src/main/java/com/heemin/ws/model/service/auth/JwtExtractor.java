@@ -13,7 +13,7 @@ public final class JwtExtractor {
     public static Optional<String> extract(HttpServletRequest request) {
         final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
 
-        if (!StringUtils.hasText(header) || !header.toLowerCase().startsWith("bearer ")) {
+        if (!StringUtils.hasText(header) || !header.toLowerCase().startsWith("bearer")) {
             return Optional.empty();
         }
 
