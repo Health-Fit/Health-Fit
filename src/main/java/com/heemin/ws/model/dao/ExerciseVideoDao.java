@@ -28,7 +28,8 @@ public interface ExerciseVideoDao {
 	int insertBlock(@Param("memberId") long memberId, @Param("videoId") long videoId);
 	int deleteBlock(@Param("memberId") long memberId, @Param("videoId") long videoId);
 
-	int checkLiked(long userId, long videoId);
+	int checkLiked(@Param("memberId") long memberId, @Param("videoId") long videoId);
+	int checkBlocked(@Param("memberId") long memberId, @Param("videoId") long videoId);
 	
 	int updateDelete(long videoId);
 }

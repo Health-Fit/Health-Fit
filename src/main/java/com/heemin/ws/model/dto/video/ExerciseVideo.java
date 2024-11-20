@@ -2,6 +2,7 @@ package com.heemin.ws.model.dto.video;
 
 import com.heemin.ws.model.dto.category.ExerciseCategory;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class ExerciseVideo {
@@ -10,7 +11,7 @@ public class ExerciseVideo {
     private String url;
     private long viewCnt;
     private long reviewCnt;
-    private LocalDate regDate;
+    private LocalDateTime regDate;
     private boolean deleted;
     private boolean liked;		// 좋아요 표시 여부
     private boolean blocked;	// 싫어요 표시 여부
@@ -68,11 +69,11 @@ public class ExerciseVideo {
         this.reviewCnt = reviewCnt;
     }
 
-    public LocalDate getRegDate() {
+    public LocalDateTime getRegDate() {
         return regDate;
     }
 
-    public void setRegDate(LocalDate regDate) {
+    public void setRegDate(LocalDateTime regDate) {
         this.regDate = regDate;
     }
 

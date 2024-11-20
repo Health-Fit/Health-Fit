@@ -17,12 +17,13 @@
   </select>
   
   <select id="selectSample" resultType="ExerciseVideo">
-  	SELECT * FROM exercise_video;
+  	SELECT * FROM exercise_video
+	  WHERE deleted = false;
   </select>
   
   <select id="selectById" parameterType="long" resultType="ExerciseVideo">
   	SELECT * FROM exercise_video
-  	WHERE id = #{id};
+  	WHERE id = #{id} AND deleted = false;
   </select>
   
   <update id="updateViewCnt" parameterType="long">
@@ -33,26 +34,35 @@
   
   <select id="selectByCategory" parameterType="int" resultType="ExerciseVideo">
   	SELECT * FROM exercise_video
-  	WHERE id IN (SELECT exercise_video_id FROM exercise_video_category WHERE exercise_category_id = #{categoryId});
+  	WHERE id IN (SELECT exercise_video_id FROM exercise_video_category WHERE exercise_category_id = #{categoryId})
+	  AND deleted = false;
   </select>
   
   <select id="selectOrderByView" resultType="ExerciseVideo">
-  	SELECT * FROM exercise_video;
+  	SELECT * FROM exercise_video
+	  WHERE deleted = false
   	ORDER BY view_cnt;
   </select>
   
-  <select id="selectByLike" parameterType="int" resultType="ExerciseVideo">
-  	SELECT ev.id AS id, ev.title AS title, ev.url AS url, ev.view_cnt AS view_cnt, ev.review_cnt AS review_cnt, ev.reg_date AS video_reg_date, evl.reg_date AS like_reg_date
-FROM exercise_video_like evl
-JOIN exercise_video ev ON evl.exercise_video_id = ev.id
-WHERE evl.member_id = #{memberId} 
-ORDER BY evl.reg_date DESC;
+  <select id="selectByLike" parameterType="long" resultType="ExerciseVideo">
+	  SELECT ev.id AS id, ev.title AS title, ev.url AS url, ev.view_cnt AS view_cnt, ev.review_cnt AS review_cnt, ev.reg_date AS reg_date, ev.deleted AS deleted
+	  FROM exercise_video_like evl
+	  JOIN exercise_video ev ON evl.exercise_video_id = ev.id
+	  WHERE evl.member_id = #{memberId} AND ev.deleted = false
+	  ORDER BY evl.reg_date DESC;
   </select>
   
   <select id="checkLiked" resultType="int">
   	SELECT COUNT(*) FROM exercise_video_like
-  	WHERE #{videoId} IN (SELECT exercise_video_id FROM exercise_video_like WHERE member_id = #{userId});
+  	WHERE exercise_video_id = #{videoId}
+		AND member_id = #{memberId};
   </select>
+
+	<select id="checkBlocked" resultType="int">
+		SELECT COUNT(*) FROM exercise_video_block
+		WHERE exercise_video_id = #{videoId}
+		AND member_id = #{memberId};
+	</select>
   
   <insert id="insertLike">
   	INSERT INTO exercise_video_like (member_id, exercise_video_id)

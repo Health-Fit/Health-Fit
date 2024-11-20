@@ -1,6 +1,7 @@
 package com.heemin.ws.model.dto.member;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Member {
     private long id;
@@ -13,8 +14,8 @@ public class Member {
     private LocalDate birth;
     private String tel;
     private boolean deleted;
-    private LocalDate deleteDate;
-    private LocalDate regDate;
+    private LocalDateTime deleteDate;
+    private LocalDateTime regDate;
     private int memberAuthId;
 
     public long getId() {
@@ -89,19 +90,19 @@ public class Member {
         this.deleted = deleted;
     }
 
-    public LocalDate getDeleteDate() {
+    public LocalDateTime getDeleteDate() {
         return deleteDate;
     }
 
-    public void setDeleteDate(LocalDate deleteDate) {
+    public void setDeleteDate(LocalDateTime deleteDate) {
         this.deleteDate = deleteDate;
     }
 
-    public LocalDate getRegDate() {
+    public LocalDateTime getRegDate() {
         return regDate;
     }
 
-    public void setRegDate(LocalDate regDate) {
+    public void setRegDate(LocalDateTime regDate) {
         this.regDate = regDate;
     }
 

@@ -7,7 +7,11 @@ public interface PlaceDao {
 	Place selectById(long id);
 	int insertLike(@Param("memberId") long memberId, @Param("placeId") long placeId);
 	int deleteLike(@Param("memberId") long memberId, @Param("placeId") long placeId);
+
 	
 	int insertBlock(@Param("memberId") long memberId, @Param("placeId") long placeId);
 	int deleteBlock(@Param("memberId") long memberId, @Param("placeId") long placeId);
+
+	int checkLiked(@Param("memberId") long memberId, @Param("placeId") long placeId);
+	int checkBlocked(@Param("memberId") long memberId, @Param("placeId") long placeId);
 }

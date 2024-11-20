@@ -1,6 +1,7 @@
 package com.heemin.ws.model.dto.review;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class ExerciseVideoReview {
@@ -13,8 +14,8 @@ public class ExerciseVideoReview {
 	private boolean liked;		// 해당 리뷰 좋아요 표시 여부
 	private boolean blocked;	// 해당 리뷰 싫어요 표시 여부
 	private int rating;
-	private LocalDate regDate;
-	private LocalDate updateDate;
+	private LocalDateTime regDate;
+	private LocalDateTime updateDate;
 	private boolean deleted;
 	
 	public ExerciseVideoReview() {
@@ -101,19 +102,19 @@ public class ExerciseVideoReview {
 		this.rating = rating;
 	}
 
-	public LocalDate getRegDate() {
+	public LocalDateTime getRegDate() {
 		return regDate;
 	}
 
-	public void setRegDate(LocalDate regDate) {
+	public void setRegDate(LocalDateTime regDate) {
 		this.regDate = regDate;
 	}
 
-	public LocalDate getUpdateDate() {
+	public LocalDateTime getUpdateDate() {
 		return updateDate;
 	}
 
-	public void setUpdateDate(LocalDate updateDate) {
+	public void setUpdateDate(LocalDateTime updateDate) {
 		this.updateDate = updateDate;
 	}
 

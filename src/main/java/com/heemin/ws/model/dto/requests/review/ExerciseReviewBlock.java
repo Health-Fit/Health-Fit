@@ -1,21 +1,21 @@
 package com.heemin.ws.model.dto.requests.review;
 
 public class ExerciseReviewBlock {
-	private long reviewId;
+	private long id;
 	private boolean block;
 	public ExerciseReviewBlock() {
 		
 	}
-	public ExerciseReviewBlock(long reviewId, boolean block) {
+	public ExerciseReviewBlock(long id, boolean block) {
 		super();
-		this.reviewId = reviewId;
+		this.id = id;
 		this.block = block;
 	}
-	public long getReviewId() {
-		return reviewId;
+	public long getId() {
+		return id;
 	}
-	public void setReviewId(long reviewId) {
-		this.reviewId = reviewId;
+	public void setId(long reviewId) {
+		this.id = id;
 	}
 	public boolean isBlock() {
 		return block;
@@ -25,7 +25,7 @@ public class ExerciseReviewBlock {
 	}
 	@Override
 	public String toString() {
-		return "ExerciseReviewBlock [reviewId=" + reviewId + ", block=" + block + "]";
+		return "ExerciseReviewBlock [reviewId=" + id + ", block=" + block + "]";
 	}
 	
 }
