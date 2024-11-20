@@ -11,18 +11,21 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.util.PatternMatchUtils;
 
 public class JwtAuthorizationFilter implements Filter {
 
-    private final String[] whiteUris = {"/", "/api/auth/login/**", "/api/videos"};
+    private final String[] whiteUris = {"/", "/api/auth/login/**", "/api/videos", "/api/auth/access-token", "/api/auth/logout"};
     private final JwtProvider jwtProvider = new JwtProvider();
     private final ObjectMapper objectMapper;
+    private final RedisTemplate redisTemplate;
 
-    public JwtAuthorizationFilter(ObjectMapper objectMapper) {
+    public JwtAuthorizationFilter(ObjectMapper objectMapper, RedisTemplate redisTemplate) {
         this.objectMapper = objectMapper;
+        this.redisTemplate = redisTemplate;
     }
 
     @Override
@@ -41,15 +44,23 @@ public class JwtAuthorizationFilter implements Filter {
         }
 
         if (!isContainToken(httpServletRequest)) { // 요청에 토큰이 없다면, 401반환 후 필터 체인 중단
-            System.out.println(httpServletRequest.getRequestURI());
             sendNoAuthResponse(servletResponse);
             return;
         }
 
         String token = getToken(httpServletRequest);
+
+        if (isBlackToken(token)) { // 로그아웃한 accessToken이면, 401반환 후 중단
+            sendNoAuthResponse(servletResponse);
+        }
+
         Claims claims = jwtProvider.getClaims(token);
         httpServletRequest.setAttribute("memberId", claims.get("memberId"));
         filterChain.doFilter(servletRequest, servletResponse);
+    }
+
+    private boolean isBlackToken(String accessToken) {
+        return redisTemplate.hasKey(accessToken);
     }
 
     private boolean isWhiteUri(String uri) {

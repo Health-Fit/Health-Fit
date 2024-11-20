@@ -53,4 +53,10 @@ public class JwtProvider {
         long expireTimeMils = 1000L * 60 * 60 * 24 * 30; // 30일
         return new Date(System.currentTimeMillis() + expireTimeMils);
     }
+
+    public long getAccessTokenExpiration(String accessToken) {
+        Claims claims = getClaims(accessToken);
+
+        return claims.getExpiration().getTime() - System.currentTimeMillis();
+    }
 }
