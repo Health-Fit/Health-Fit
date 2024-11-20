@@ -8,6 +8,7 @@ import com.heemin.ws.model.dto.auth.OauthToken;
 import com.heemin.ws.model.dto.member.Member;
 import com.heemin.ws.model.service.auth.requester.OauthRequester;
 import com.heemin.ws.model.service.auth.requester.OauthRequesterFactory;
+import io.jsonwebtoken.Claims;
 import java.util.Map;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,5 +62,21 @@ public class AuthService {
 
     private int signup(Member member) {
         return memberDao.insert(member);
+    }
+
+    @Transactional
+    public Response logout(long memberId) {
+        authDao.deleteRefreshToken(memberId);
+        return new Response(200);
+    }
+
+    public Response reissueAccessToken(Jwt jwt) {
+        Claims claims = jwtProvider.getClaims(jwt.getRefreshToken());
+        long memberId = Long.valueOf(claims.get("memberId").toString());
+
+        if (!authDao.existByMemberId(memberId)) {
+            return new Response("유효하지 않은 refresh token", 401);
+        }
+        return new Response(jwtProvider.reissueAccessToken(Map.of("memberId", memberId), jwt.getRefreshToken()), 200);
     }
 }
