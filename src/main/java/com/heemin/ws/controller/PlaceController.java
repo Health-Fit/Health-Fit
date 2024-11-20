@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.NativeWebRequest;
 
+import java.lang.annotation.Native;
+
 import static com.heemin.ws.controller.MemberManager.getMemberId;
 
 @RestController
@@ -30,31 +32,33 @@ public class PlaceController {
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getById(@PathVariable long id, NativeWebRequest webRequest){
 		long memberId = getMemberId(webRequest);
-		Place place = placeService.getById(id);
+		Place place = placeService.getById(id, memberId);
 		if (place == null)
 			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
 		return new ResponseEntity<Place>(place, HttpStatus.OK);
 	}
 	
 	@PutMapping("/like")
-	public ResponseEntity<?> like(@Auth Long memberId, @RequestBody PlaceLike placeLike){
+	public ResponseEntity<?> like(@RequestBody PlaceLike placeLike, NativeWebRequest webRequest){
+		long memberId = getMemberId(webRequest);
 		// 로그인하지 않은 경우 BAD REQUEST로 돌림
-		if (memberId == null)
+		if (memberId == -1)
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
     	
-    	if (placeService.setLike(memberId, placeLike.getPlaceId(), placeLike.isLike()))
+    	if (placeService.setLike(memberId, placeLike.getId(), placeLike.isLike()))
     		return new ResponseEntity<Void>(HttpStatus.OK);
     	else
     		return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	@PutMapping("/block")
-    public ResponseEntity<?> block(@Auth Long memberId, @RequestBody PlaceBlock placeBlock){
+    public ResponseEntity<?> block(@RequestBody PlaceBlock placeBlock, NativeWebRequest webRequest){
+		long memberId = getMemberId(webRequest);
 		// 로그인하지 않은 경우 BAD REQUEST로 돌림
-		if (memberId == null)
+		if (memberId == -1)
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
     	
-    	if (placeService.setBlock(memberId, placeBlock.getPlaceId(), placeBlock.isBlock()))
+    	if (placeService.setBlock(memberId, placeBlock.getId(), placeBlock.isBlock()))
     		return new ResponseEntity<Void>(HttpStatus.OK);
     	else
     		return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);

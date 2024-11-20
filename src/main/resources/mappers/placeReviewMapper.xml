@@ -13,4 +13,16 @@
   	(member_id, exercise_place_id, content, rating)
   	VALUES (#{memberId}, #{exercisePlaceId}, #{content}, #{rating});
   </insert>
+
+	<select id="checkLiked" resultType="int">
+		SELECT COUNT(*) FROM exercise_place_review_like
+		WHERE exercise_place_review_id = #{reviewId}
+		AND member_id = #{memberId};
+	</select>
+
+	<select id="checkBlocked" resultType="int">
+		SELECT COUNT(*) FROM exercise_place_review_block
+		WHERE exercise_place_review_id = #{reviewId}
+		AND member_id = #{memberId};
+	</select>
 </mapper>

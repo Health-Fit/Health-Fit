@@ -1,21 +1,21 @@
 package com.heemin.ws.model.dto.requests.place;
 
 public class PlaceBlock {
-	private long placeId;
+	private long id;
 	private boolean block;
 	public PlaceBlock() {
 		// TODO Auto-generated constructor stub
 	}
-	public PlaceBlock(long placeId, boolean block) {
+	public PlaceBlock(long id, boolean block) {
 		super();
-		this.placeId = placeId;
+		this.id = id;
 		this.block = block;
 	}
-	public long getPlaceId() {
-		return placeId;
+	public long getId() {
+		return id;
 	}
-	public void setPlaceId(long placeId) {
-		this.placeId = placeId;
+	public void setId(long id) {
+		this.id = id;
 	}
 	public boolean isBlock() {
 		return block;
@@ -25,7 +25,7 @@ public class PlaceBlock {
 	}
 	@Override
 	public String toString() {
-		return "PlaceBlock [placeId=" + placeId + ", block=" + block + "]";
+		return "PlaceBlock [placeId=" + id + ", block=" + block + "]";
 	}
 	
 }
