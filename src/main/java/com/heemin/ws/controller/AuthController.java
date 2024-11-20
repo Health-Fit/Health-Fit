@@ -1,5 +1,7 @@
 package com.heemin.ws.controller;
 
+import static com.heemin.ws.controller.MemberManager.getMemberId;
+
 import com.heemin.ws.model.dto.auth.Jwt;
 import com.heemin.ws.model.service.auth.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.NativeWebRequest;
 
 @RequestMapping("/api/auth")
 @RestController
@@ -32,7 +35,8 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<?> logout(HttpServletRequest request, long memberId) {
+    public ResponseEntity<?> logout(HttpServletRequest request, NativeWebRequest webRequest) {
+        long memberId = getMemberId(webRequest);
         return authService.logout(request, memberId).getResponse();
     }
 }
