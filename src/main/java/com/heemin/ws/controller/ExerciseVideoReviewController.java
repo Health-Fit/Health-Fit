@@ -7,7 +7,7 @@ import com.heemin.ws.model.dto.requests.review.ExerciseReviewLike;
 import com.heemin.ws.model.dto.requests.review.ExerciseReviewOrderCondition;
 import com.heemin.ws.model.dto.review.ExerciseVideoReview;
 import com.heemin.ws.model.service.ExerciseVideoReviewService;
-import com.heemin.ws.support.Auth;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -65,7 +65,7 @@ public class ExerciseVideoReviewController {
         reviewService.update(review, memberId);
         return ResponseEntity.ok().build();
     }
-    
+
     // 리뷰 좋아요 기능
     @PutMapping("/like")
     public ResponseEntity<?> like(@RequestBody ExerciseReviewLike exerciseReviewLike, NativeWebRequest webRequest){
@@ -79,7 +79,7 @@ public class ExerciseVideoReviewController {
     	else
     		return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
-    
+
     // 리뷰 신고하기 기능
     @PutMapping("/block")
     public ResponseEntity<?> block(@RequestBody ExerciseReviewBlock exerciseReviewBlock, NativeWebRequest webRequest){
@@ -93,7 +93,7 @@ public class ExerciseVideoReviewController {
     	else
     		return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
-    
+
     // 비디오 아이디로 리뷰 받아오기
     @PostMapping("/{videoId}")
     public ResponseEntity<?> getVideoReview(NativeWebRequest webRequest, @PathVariable long videoId, @RequestBody ExerciseReviewOrderCondition orderCondition){
@@ -103,8 +103,8 @@ public class ExerciseVideoReviewController {
     		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     	return new ResponseEntity<List<ExerciseVideoReview>>(reviews, HttpStatus.OK);
     }
-    
-    
+
+
     @GetMapping("/{memberId}")
     public ResponseEntity<?> getMemberReview(@PathVariable("memberId") long id, NativeWebRequest webRequest){
         long memberId = getMemberId(webRequest);

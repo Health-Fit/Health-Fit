@@ -6,7 +6,15 @@
 
     <insert id="insertRefreshToken" parameterType="map">
         INSERT INTO refresh_token (member_id, token)
-        VALUES (#{memberId}, #{refreshToken})
+        VALUES (#{memberId}, #{refreshToken});
     </insert>
+
+    <delete id="deleteRefreshToken" parameterType="long">
+        DELETE FROM refresh_token WHERE member_id = #{memberId};
+    </delete>
+
+    <select id="existByMemberId" resultType="boolean" parameterType="long">
+        SELECT EXISTS (SELECT 1 FROM refresh_token WHERE member_id = #{memberId});
+    </select>
 
 </mapper>

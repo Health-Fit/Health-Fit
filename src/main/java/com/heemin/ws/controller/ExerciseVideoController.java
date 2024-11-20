@@ -8,7 +8,7 @@ import com.heemin.ws.model.dto.video.ExerciseVideo;
 import com.heemin.ws.model.service.ExerciseVideoReviewService;
 import com.heemin.ws.model.service.ExerciseVideoService;
 import com.heemin.ws.model.service.MemberService;
-import com.heemin.ws.support.Auth;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -37,8 +37,6 @@ import static com.heemin.ws.controller.MemberManager.getMemberId;
 public class ExerciseVideoController {
 
     private final OpenAiChatModel openAiChatModel;
-
-
     MemberService memberService;
     ExerciseVideoService videoService;
     ExerciseVideoReviewService reviewService;

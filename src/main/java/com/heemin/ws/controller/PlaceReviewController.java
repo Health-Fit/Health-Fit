@@ -2,8 +2,6 @@ package com.heemin.ws.controller;
 
 import com.heemin.ws.model.dto.place.PlaceReview;
 import com.heemin.ws.model.service.PlaceReviewService;
-import com.heemin.ws.support.Auth;
-import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

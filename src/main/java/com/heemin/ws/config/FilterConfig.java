@@ -6,15 +6,16 @@ import jakarta.servlet.Filter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.RedisTemplate;
 
 @Configuration
 public class FilterConfig {
 
-    /*@Bean
-    public FilterRegistrationBean<Filter> jwtFilter(ObjectMapper objectMapper) {
+    @Bean
+    public FilterRegistrationBean<Filter> jwtFilter(ObjectMapper objectMapper, RedisTemplate redisTemplate) {
         FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
-        filterRegistrationBean.setFilter(new JwtAuthorizationFilter(objectMapper));
+        filterRegistrationBean.setFilter(new JwtAuthorizationFilter(objectMapper, redisTemplate));
         filterRegistrationBean.setOrder(1);
         return filterRegistrationBean;
-    }*/
+    }
 }

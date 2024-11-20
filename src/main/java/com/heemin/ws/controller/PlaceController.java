@@ -4,8 +4,6 @@ import com.heemin.ws.model.dto.place.Place;
 import com.heemin.ws.model.dto.requests.place.PlaceBlock;
 import com.heemin.ws.model.dto.requests.place.PlaceLike;
 import com.heemin.ws.model.service.PlaceService;
-import com.heemin.ws.support.Auth;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
