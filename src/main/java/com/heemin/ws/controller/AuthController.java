@@ -6,6 +6,7 @@ import com.heemin.ws.model.dto.auth.Jwt;
 import com.heemin.ws.model.service.auth.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.NativeWebRequest;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/api/auth")
 @RestController
 public class AuthController {

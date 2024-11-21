@@ -34,7 +34,16 @@ public class JwtAuthorizationFilter implements Filter {
 
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
 
-        if (httpServletRequest.getMethod().equals("OPTIONS")) { // OPTIONS 메서드는 안전하므로 별도의 인증 필요 없음 (필터 종료)
+        if (httpServletRequest.getMethod().toUpperCase().equals("OPTIONS")) { // OPTIONS 메서드는 안전하므로 별도의 인증 필요 없음 (필터 종료)
+            System.out.println("OPTIONS preflight");
+            HttpServletResponse response = (HttpServletResponse) servletResponse;
+            response.setStatus(HttpStatus.OK.value());
+
+            // CORS 헤더 추가
+            response.setHeader("Access-Control-Allow-Origin", "*"); // 모든 출처 허용 (혹은 특정 출처만 허용)
+            response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+            response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, X-Requested-With");
+
             return;
         }
 
@@ -64,7 +73,6 @@ public class JwtAuthorizationFilter implements Filter {
     }
 
     private boolean isWhiteUri(String uri) {
-        System.out.println(uri);
         return PatternMatchUtils.simpleMatch(whiteUris, uri);
     }
 
