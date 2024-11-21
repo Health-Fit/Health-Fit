@@ -67,7 +67,7 @@ public class AuthService {
     }
 
     private int signup(Member member) {
-        member.setNickName(member.getName());
+        member.setNickname(member.getName());
         return memberDao.insert(member);
     }
 
