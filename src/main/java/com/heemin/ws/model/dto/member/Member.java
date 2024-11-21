@@ -46,6 +46,14 @@ public class Member {
         this.password = password;
     }
 
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
     public String getName() {
         return name;
     }

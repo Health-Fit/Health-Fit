@@ -5,6 +5,7 @@ import com.heemin.ws.model.dao.MemberDao;
 import com.heemin.ws.model.dto.Response;
 import com.heemin.ws.model.dto.auth.Jwt;
 import com.heemin.ws.model.dto.auth.OauthToken;
+import com.heemin.ws.model.dto.member.LoginResponse;
 import com.heemin.ws.model.dto.member.Member;
 import com.heemin.ws.model.service.auth.requester.OauthRequester;
 import com.heemin.ws.model.service.auth.requester.OauthRequesterFactory;
@@ -58,7 +59,7 @@ public class AuthService {
         authDao.insertRefreshToken(member.getId(), jwt.getRefreshToken());
 
         // 회원 가입인 경우, 운동 영상 정보 + Jwt 반환
-        return new Response(jwt, status);
+        return new Response(new LoginResponse(jwt, member), status);
     }
 
     private Member getMember(String email) {
@@ -66,6 +67,7 @@ public class AuthService {
     }
 
     private int signup(Member member) {
+        member.setNickname(member.getName());
         return memberDao.insert(member);
     }
 

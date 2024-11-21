@@ -13,7 +13,7 @@
         <if test="profileImg != null">
             , profile_img
         </if>)
-        values (#{email}, #{name}, #{name}, #{gender}, #{tel}, #{birth}
+        values (#{email}, #{name}, #{nickname}, #{gender}, #{tel}, #{birth}
         <if test="profileImg != null">
             , #{profileImg}
         </if>);
