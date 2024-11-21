@@ -7,16 +7,20 @@ public class Member {
     private long id;
     private String email;
     private String password;
-    private String nickname;
     private String name;
+    private String nickname;
     private String gender;
     private String profileImg;
     private LocalDate birth;
+    private String descript;
     private String tel;
     private boolean deleted;
     private LocalDateTime deleteDate;
     private LocalDateTime regDate;
     private int memberAuthId;
+
+    public Member() {
+    }
 
     public long getId() {
         return id;
@@ -120,5 +124,21 @@ public class Member {
 
     public void setMemberAuthId(int memberAuthId) {
         this.memberAuthId = memberAuthId;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getDescript() {
+        return descript;
+    }
+
+    public void setDescript(String descript) {
+        this.descript = descript;
     }
 }
