@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heemin.ws.model.dao.ExerciseGroupDao">
+    <select id="selectByCondition" parameterType="GroupSearchCondition">
+        SELECT *
+        FROM exercise_group
+        WHERE start_date &gt; #{time}
+        AND lon &gt;= #{left}
+        AND lon &lt;= #{right}
+        AND lat &gt;= #{bottom}
+        AND lat &lt;= #{top}
+        <if test="categoryId != -1">
+            AND exercise_category_id = #{categoryId}
+        </if>
+    </select>
+
+    <select id="selectByMember" parameterType="long">
+        SELECT DISTINCT egroup.*
+        FROM exercise_group egroup
+        LEFT JOIN exercise_group_member egm
+        ON egroup.id = egm.exercise_group_id
+        WHERE egroup.leader_member_id = #{memberId}
+        OR egm.member_id = #{memberId};
+    </select>
+
+    <select id="selectById">
+        SELECT *
+        FROM exercise_group
+        WHERE id = #{id};
+    </select>
+
+    <select id="selectGroupMemberCnt">
+        SELECT
+        COUNT(*) + 1 AS member_count
+        FROM
+        exercise_group_member
+        WHERE
+        exercise_group_id = #{groupId};
+    </select>
+
+    <select id="selectGroupMembers">
+        SELECT member_id
+        FROM exercise_group_member
+        WHERE exercise_group_id = #{groupId};
+    </select>
+
+    <insert id="insert" parameterType="ExerciseGroup">
+        INSERT INTO exercise_group (
+        name, lat, lon, leader_member_id, exercise_category_id,
+        start_date, end_date, max_member, descript)
+        VALUES (
+        #{name}, #{lat}, #{lon}, #{leaderMemberId}, #{exerciseCategoryId},
+        #{startDate}, #{endDate}, #{maxMember}, #{descript});
+    </insert>
+
+    <insert id="insertMember">
+        INSERT INTO exercise_group_member
+        (member_id, exercise_group_id)
+        VALUES
+        (#{memberId}, #{groupId});
+    </insert>
+</mapper>
