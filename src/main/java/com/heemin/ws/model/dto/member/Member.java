@@ -126,14 +126,6 @@ public class Member {
         this.memberAuthId = memberAuthId;
     }
 
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
     public String getDescript() {
         return descript;
     }
