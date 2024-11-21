@@ -7,7 +7,7 @@ public class Member {
     private long id;
     private String email;
     private String password;
-
+    private String nickName;
     private String name;
     private String gender;
     private String profileImg;
@@ -40,6 +40,14 @@ public class Member {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public String getName() {
