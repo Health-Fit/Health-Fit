@@ -70,7 +70,7 @@ public class ExerciseVideoController {
         List<ExerciseVideo> videos = videoService.getVideoByCondition(memberId, searchCondition);
         System.out.println(videos);
         if (videos == null || videos.isEmpty())
-            return new ResponseEntity<String>("등록된 비디오 영상 자료가 없습니다.", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<String>("등록된 비디오 영상 자료가 없습니다.", HttpStatus.NO_CONTENT);
         return new ResponseEntity<List<ExerciseVideo>>(videos, HttpStatus.OK);
     }
 
