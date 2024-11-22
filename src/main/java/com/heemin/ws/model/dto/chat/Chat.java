@@ -7,6 +7,7 @@ public class Chat {
     private long id;
     private long exerciseVideoId;
     private long memberId;
+    private long nickname;
     private String message;
     private LocalDateTime sentAt;
 
@@ -16,6 +17,14 @@ public class Chat {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public long getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(long nickname) {
+        this.nickname = nickname;
     }
 
     public long getExerciseVideoId() {

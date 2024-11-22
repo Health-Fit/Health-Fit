@@ -9,7 +9,22 @@
     </insert>
 
     <select id="selectByExerciseVideoId" parameterType="map" resultType="Chat">
-        SELECT * FROM exercise_video_chat_message
-        WHERE exercise_video_id=#{exerciseVideoId} AND sent_at >= #{time} ORDER BY sent_at;
+        SELECT
+        e.id AS id,
+        e.exercise_video_id AS exerciseVideoId,
+        e.member_id AS memberId,
+        m.nickname AS nickname,
+        e.message AS message,
+        e.sent_at AS sentAt
+        FROM
+        exercise_video_chat_message e
+        JOIN
+        member m ON e.member_id = m.id
+        WHERE
+        e.exercise_video_id = #{exerciseVideoId}
+        AND e.sent_at >= #{time}
+        ORDER BY
+        e.sent_at;
     </select>
+
 </mapper>
