@@ -4,6 +4,7 @@ import com.heemin.ws.model.dto.Response;
 import com.heemin.ws.model.dto.chat.Chat;
 import com.heemin.ws.model.service.ChatService;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.http.HttpStatus;
@@ -30,16 +31,18 @@ public class ChatController {
     }
 
     @GetMapping("/{videoId}")
-    public DeferredResult<ResponseEntity> read(@PathVariable long videoId, @RequestParam LocalDateTime time) {
+    public DeferredResult<ResponseEntity> read(@PathVariable long videoId, @RequestParam OffsetDateTime time) {
+
         DeferredResult<ResponseEntity> deferredResult = new DeferredResult<>(TIMEOUT_VALUE,
                 ResponseEntity.status(HttpStatus.NO_CONTENT).body("타임 아웃 : 새로운 채팅 내역 없음"));
 
-        chatRequests.put(deferredResult, new Data(videoId, time));
+        LocalDateTime localDateTime = time.toLocalDateTime();
+        chatRequests.put(deferredResult, new Data(videoId, localDateTime));
 
         // 콜백 함수 지정 (time out과 상관없이 실행)
         deferredResult.onCompletion(() -> chatRequests.remove(deferredResult));
 
-        Response chats = chatService.read(videoId, time);
+        Response chats = chatService.read(videoId, localDateTime);
 
         if (chats.hasData()) { // 새로운 채팅 있으면, 결과 담아서 바로 반환
             deferredResult.setResult(chats.getResponse());
