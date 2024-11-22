@@ -54,6 +54,8 @@ public class ChatController {
     @PostMapping("/{videoId}")
     public ResponseEntity<?> send(@RequestBody Chat chat, @PathVariable long videoId) {
 
+        System.out.println("채팅 전송 컨트롤러 진입");
+
         chatService.send(chat.getMemberId(), videoId, chat);
 
         // 해당 운동 영상에 채팅이 올라오면, 대기하고 있는 deferredResult 반환시키기

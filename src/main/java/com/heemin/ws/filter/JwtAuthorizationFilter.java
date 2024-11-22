@@ -35,7 +35,6 @@ public class JwtAuthorizationFilter implements Filter {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
 
         if (httpServletRequest.getMethod().toUpperCase().equals("OPTIONS")) { // OPTIONS 메서드는 안전하므로 별도의 인증 필요 없음 (필터 종료)
-            System.out.println("OPTIONS preflight");
             HttpServletResponse response = (HttpServletResponse) servletResponse;
             response.setStatus(HttpStatus.OK.value());
 

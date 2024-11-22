@@ -56,6 +56,7 @@ public class AuthService {
 
         // 자체 Jwt 토큰 만들고 refreshToken 저장
         Jwt jwt = jwtProvider.createJwt(Map.of("memberId", member.getId()));
+        System.out.println("@@@memberId : " + member.getId());
         authDao.insertRefreshToken(member.getId(), jwt.getRefreshToken());
 
         // 회원 가입인 경우, 운동 영상 정보 + Jwt 반환

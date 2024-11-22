@@ -86,7 +86,6 @@ public class ExerciseVideoController {
         long memberId = getMemberId(webRequest);
 
         ExerciseVideo video = videoService.getVideoById(id, memberId);
-        System.out.println(video);
         if (video == null)
             return new ResponseEntity<String>("등록된 비디오 영상 자료가 없습니다.", HttpStatus.NOT_FOUND);
         return new ResponseEntity<ExerciseVideo>(video, HttpStatus.OK);

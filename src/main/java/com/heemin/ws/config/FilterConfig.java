@@ -11,11 +11,11 @@ import org.springframework.data.redis.core.RedisTemplate;
 @Configuration
 public class FilterConfig {
 
-//    @Bean
-//    public FilterRegistrationBean<Filter> jwtFilter(ObjectMapper objectMapper, RedisTemplate redisTemplate) {
-//        FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
-//        filterRegistrationBean.setFilter(new JwtAuthorizationFilter(objectMapper, redisTemplate));
-//        filterRegistrationBean.setOrder(1);
-//        return filterRegistrationBean;
-//    }
+    @Bean
+    public FilterRegistrationBean<Filter> jwtFilter(ObjectMapper objectMapper, RedisTemplate redisTemplate) {
+        FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
+        filterRegistrationBean.setFilter(new JwtAuthorizationFilter(objectMapper, redisTemplate));
+        filterRegistrationBean.setOrder(1);
+        return filterRegistrationBean;
+    }
 }
