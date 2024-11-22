@@ -18,7 +18,8 @@ import org.springframework.util.PatternMatchUtils;
 
 public class JwtAuthorizationFilter implements Filter {
 
-    private final String[] whiteUris = {"/", "/api/auth/login/**", "/api/videos", "/api/auth/access-token"};
+    private final String[] whiteUris = {"/", "/api/auth/login/**", "/api/videos", "/api/auth/access-token",
+            "/api/categories"};
     private final JwtProvider jwtProvider = new JwtProvider();
     private final ObjectMapper objectMapper;
     private final RedisTemplate redisTemplate;
@@ -47,6 +48,12 @@ public class JwtAuthorizationFilter implements Filter {
         }
 
         if (isWhiteUri(httpServletRequest.getRequestURI())) { // whiteUri라면, 다음 필터로 이동시킴
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
+
+        if (httpServletRequest.getRequestURI().contains("/api/chats/") && httpServletRequest.getMethod().toUpperCase()
+                .equals("GET")) {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
