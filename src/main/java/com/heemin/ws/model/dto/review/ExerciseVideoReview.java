@@ -7,6 +7,8 @@ import java.util.Date;
 public class ExerciseVideoReview {
 	private long id;
 	private long memberId;
+	private String nickname;
+	private String profileImg;
 	private long exerciseVideoId;
 	private String content;
 	private long likeCnt;
@@ -36,6 +38,22 @@ public class ExerciseVideoReview {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	public String getProfileImg() {
+		return profileImg;
+	}
+
+	public void setProfileImg(String profileImg) {
+		this.profileImg = profileImg;
 	}
 
 	public long getMemberId() {

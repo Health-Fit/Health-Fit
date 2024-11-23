@@ -1,100 +1,113 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.heemin.ws.model.dao.ExerciseVideoReviewDao">
-  <insert id="insert" parameterType="ExerciseVideoReview">
-  	INSERT INTO exercise_video_review
-  	(member_id, exercise_video_id, content, rating)
-  	VALUES (#{memberId}, #{exerciseVideoId}, #{content}, #{rating});
-  </insert>
-  
-  <update id="update" parameterType="ExerciseVideoReview">
-  	UPDATE exercise_video_review 
-  	SET content = #{content}, rating = #{rating}, update_date = #{updateDate}
-    WHERE id = #{id};
-  </update>
-  
-  <update id="delete" parameterType="long">
-  	UPDATE exercise_video_review
-  	SET deleted = true
-  	WHERE id = #{id};
-  </update>
+    <insert id="insert" parameterType="ExerciseVideoReview">
+        INSERT INTO exercise_video_review
+        (member_id, exercise_video_id, content, rating)
+        VALUES (#{memberId}, #{exerciseVideoId}, #{content}, #{rating});
+    </insert>
 
-  <select id="selectById">
-    SELECT * FROM exercise_video_review
-    WHERE id = #{id}
-    AND deleted = false;
-  </select>
-  
-  <select id="selectByVideoId">
-  	SELECT *
-    FROM exercise_video_review
-  	WHERE exercise_video_id = #{id}
-    AND deleted = false
-    ORDER BY ${condition.orderBy} ${condition.orderDir};
-  </select>
-  
-  <select id="selectByMemberId">
-  	SELECT *
-    FROM exercise_video_review
-  	WHERE member_id = #{id}
-    AND deleted = false;
-  </select>
-  
-  <insert id="insertLike">
-  	INSERT INTO exercise_video_review_like (member_id, exercise_video_review_id)
-    VALUES (#{memberId}, #{reviewId});
-  </insert>
-  
-  <delete id="deleteLike">
-  	DELETE FROM exercise_video_review_like
-  	WHERE member_id = #{memberId} AND exercise_video_review_id = #{reviewId};
-  </delete>
+    <update id="update" parameterType="ExerciseVideoReview">
+        UPDATE exercise_video_review
+        SET content = #{content}, rating = #{rating}, update_date = #{updateDate}
+        WHERE id = #{id};
+    </update>
 
-  <update id="likeCntUp">
-    UPDATE exercise_video_review
-    SET like_cnt = like_cnt + 1
-    WHERE id = #{id}
-  </update>
+    <update id="delete" parameterType="long">
+        UPDATE exercise_video_review
+        SET deleted = true
+        WHERE id = #{id};
+    </update>
 
-  <update id="likeCntDown">
-    UPDATE exercise_video_review
-    SET like_cnt = like_cnt - 1
-    WHERE id = #{id}
-  </update>
-  
-  <insert id="insertBlock">
-  	INSERT INTO exercise_video_review_block (member_id, exercise_video_review_id)
-  	VALUES (#{memberId}, #{reviewId});
-  </insert>
-  
-  <delete id="deleteBlock">
-  	DELETE FROM exercise_video_review_block
-  	WHERE member_id = #{memberId} AND exercise_video_review_id = #{reviewId};
-  </delete>
+    <select id="selectById">
+        SELECT * FROM exercise_video_review
+        WHERE id = #{id}
+        AND deleted = false;
+    </select>
 
-  <update id="blockCntUp">
-    UPDATE exercise_video_review
-    SET block_cnt = block_cnt + 1
-    WHERE id = #{id};
-  </update>
+    <select id="selectByVideoId">
+        SELECT e.id,
+        e.member_id,
+        m.nickname,
+        m.profile_img,
+        e.exercise_video_id,
+        e.content,
+        e.like_cnt,
+        e.block_cnt,
+        e.rating,
+        e.reg_date,
+        e.update_date,
+        e.deleted
+        FROM exercise_video_review e
+        JOIN member m ON e.member_id = m.id
+        WHERE e.exercise_video_id = #{id}
+        AND e.deleted = false
+        ORDER BY ${condition.orderBy} ${condition.orderDir};
+    </select>
 
-  <update id="blockCntDown">
-    UPDATE exercise_video_review
-    SET block_cnt = block_cnt - 1
-    WHERE id = #{id};
-  </update>
 
-  <select id="checkLiked" resultType="int">
-    SELECT COUNT(*) FROM exercise_video_review_like
-    WHERE exercise_video_review_id = #{reviewId}
-    AND member_id = #{memberId};
-  </select>
+    <select id="selectByMemberId">
+        SELECT *
+        FROM exercise_video_review
+        WHERE member_id = #{id}
+        AND deleted = false;
+    </select>
 
-  <select id="checkBlocked" resultType="int">
-    SELECT COUNT(*) FROM exercise_video_review_block
-    WHERE exercise_video_review_id = #{reviewId}
-    AND member_id = #{memberId};
-  </select>
+    <insert id="insertLike">
+        INSERT INTO exercise_video_review_like (member_id, exercise_video_review_id)
+        VALUES (#{memberId}, #{reviewId});
+    </insert>
+
+    <delete id="deleteLike">
+        DELETE FROM exercise_video_review_like
+        WHERE member_id = #{memberId} AND exercise_video_review_id = #{reviewId};
+    </delete>
+
+    <update id="likeCntUp">
+        UPDATE exercise_video_review
+        SET like_cnt = like_cnt + 1
+        WHERE id = #{id}
+    </update>
+
+    <update id="likeCntDown">
+        UPDATE exercise_video_review
+        SET like_cnt = like_cnt - 1
+        WHERE id = #{id}
+    </update>
+
+    <insert id="insertBlock">
+        INSERT INTO exercise_video_review_block (member_id, exercise_video_review_id)
+        VALUES (#{memberId}, #{reviewId});
+    </insert>
+
+    <delete id="deleteBlock">
+        DELETE FROM exercise_video_review_block
+        WHERE member_id = #{memberId} AND exercise_video_review_id = #{reviewId};
+    </delete>
+
+    <update id="blockCntUp">
+        UPDATE exercise_video_review
+        SET block_cnt = block_cnt + 1
+        WHERE id = #{id};
+    </update>
+
+    <update id="blockCntDown">
+        UPDATE exercise_video_review
+        SET block_cnt = block_cnt - 1
+        WHERE id = #{id};
+    </update>
+
+    <select id="checkLiked" resultType="int">
+        SELECT COUNT(*) FROM exercise_video_review_like
+        WHERE exercise_video_review_id = #{reviewId}
+        AND member_id = #{memberId};
+    </select>
+
+    <select id="checkBlocked" resultType="int">
+        SELECT COUNT(*) FROM exercise_video_review_block
+        WHERE exercise_video_review_id = #{reviewId}
+        AND member_id = #{memberId};
+    </select>
 </mapper>

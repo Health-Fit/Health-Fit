@@ -37,7 +37,6 @@ public class ExerciseVideoReviewController {
 
         // 추가한 멤버의 아이디를 현재 로그인한 멤버로 저장
         review.setMemberId(memberId);
-        System.out.println(review);
         reviewService.add(review);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
