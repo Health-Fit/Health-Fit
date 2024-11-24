@@ -64,7 +64,8 @@ public class ExerciseVideoReviewService {
     @Transactional
     public boolean setReviewLike(long memberId, long reviewId, boolean like) {
         int likeCnt = 0;
-		if (like){
+
+        if (like){
             // 혹시라도 존재하는 block 삭제 ( like 와 같이 되어있을 수 없음 )
             int blockCnt = reviewDao.deleteBlock(memberId, reviewId);
             // 삭제된 block이 존재한다면 block_cnt를 낮춰줘야 한다.
