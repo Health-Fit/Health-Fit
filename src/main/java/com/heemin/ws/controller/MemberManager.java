@@ -11,6 +11,6 @@ public class MemberManager {
         if (loginMember != null)
             memberId = Long.valueOf(loginMember.toString());
         // 테스트용으로 1로 고정, 후에는 실제 로그인된 아이디 토대로 받아올 것
-        return memberId;
+        return 1;
     }
 }
