@@ -27,4 +27,29 @@
         e.sent_at;
     </select>
 
+    <insert id="insertGroupChat" parameterType="GroupChat">
+        INSERT INTO exercise_group_chat_message (exercise_group_id, member_id, message, sent_at)
+        VALUES (#{groupId}, #{memberId}, #{message}, #{sentAt});
+    </insert>
+
+    <select id="selectByGroupId" parameterType="map" resultType="GroupChat">
+        SELECT
+        e.id AS id,
+        e.exercise_group_id AS groupId,
+        e.member_id AS memberId,
+        m.nickname AS nickname,
+        m.profile_img AS profileImg,
+        e.message AS message,
+        e.sent_at AS sentAt
+        FROM
+        exercise_group_chat_message e
+        JOIN
+        member m ON e.member_id = m.id
+        WHERE
+        e.exercise_group_id = #{groupId}
+        AND e.id > #{idx}
+        ORDER BY
+        e.sent_at;
+    </select>
+
 </mapper>

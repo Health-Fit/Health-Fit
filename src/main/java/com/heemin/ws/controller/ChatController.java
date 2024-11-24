@@ -42,7 +42,7 @@ public class ChatController {
         // 콜백 함수 지정 (time out과 상관없이 실행)
         deferredResult.onCompletion(() -> chatRequests.remove(deferredResult));
 
-        Response chats = chatService.read(videoId, localDateTime);
+        Response chats = chatService.readByVideoID(videoId, localDateTime);
 
         if (chats.hasData()) { // 새로운 채팅 있으면, 결과 담아서 바로 반환
             deferredResult.setResult(chats.getResponse());
@@ -54,12 +54,12 @@ public class ChatController {
     @PostMapping("/{videoId}")
     public ResponseEntity<?> send(@RequestBody Chat chat, @PathVariable long videoId) {
 
-        chatService.send(chat.getMemberId(), videoId, chat);
+        chatService.sendByVideoId(chat.getMemberId(), videoId, chat);
 
         // 해당 운동 영상에 채팅이 올라오면, 대기하고 있는 deferredResult 반환시키기
         for (var entry : chatRequests.entrySet()) {
             if (entry.getValue().getVideoId() == videoId) {
-                Response chats = chatService.read(videoId, entry.getValue().getTime());
+                Response chats = chatService.readByVideoID(videoId, entry.getValue().getTime());
                 entry.getKey().setResult(chats.getResponse());
             }
         }
