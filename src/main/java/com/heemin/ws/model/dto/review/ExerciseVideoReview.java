@@ -1,153 +1,151 @@
 package com.heemin.ws.model.dto.review;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class ExerciseVideoReview {
-	private long id;
-	private long memberId;
-	private String nickname;
-	private String profileImg;
-	private long exerciseVideoId;
-	private String content;
-	private long likeCnt;
-	private long blockCnt;
-	private boolean liked;		// 해당 리뷰 좋아요 표시 여부
-	private boolean blocked;	// 해당 리뷰 싫어요 표시 여부
-	private int rating;
-	private LocalDateTime regDate;
-	private LocalDateTime updateDate;
-	private boolean deleted;
-	
-	public ExerciseVideoReview() {
-		
-	}
-	
-	public ExerciseVideoReview(long memberId, long exerciseVideoId, String content, int rating, boolean deleted) {
-		this.memberId = memberId;
-		this.exerciseVideoId = exerciseVideoId;
-		this.content = content;
-		this.rating = rating;
-		this.deleted = deleted;
-	}
+    private long id;
+    private long memberId;
+    private String nickname;
+    private String profileImg;
+    private long exerciseVideoId;
+    private String content;
+    private long likeCnt;
+    private long blockCnt;
+    private boolean liked;        // 해당 리뷰 좋아요 표시 여부
+    private boolean blocked;    // 해당 리뷰 싫어요 표시 여부
+    private int rating;
+    private LocalDateTime regDate;
+    private LocalDateTime updateDate;
+    private boolean deleted;
 
-	public long getId() {
-		return id;
-	}
+    public ExerciseVideoReview() {
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    }
 
-	public String getNickname() {
-		return nickname;
-	}
+    public ExerciseVideoReview(long memberId, long exerciseVideoId, String content, int rating, boolean deleted) {
+        this.memberId = memberId;
+        this.exerciseVideoId = exerciseVideoId;
+        this.content = content;
+        this.rating = rating;
+        this.deleted = deleted;
+    }
 
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public String getProfileImg() {
-		return profileImg;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public void setProfileImg(String profileImg) {
-		this.profileImg = profileImg;
-	}
+    public String getNickname() {
+        return nickname;
+    }
 
-	public long getMemberId() {
-		return memberId;
-	}
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 
-	public void setMemberId(long memberId) {
-		this.memberId = memberId;
-	}
+    public String getProfileImg() {
+        return profileImg;
+    }
 
-	public long getExerciseVideoId() {
-		return exerciseVideoId;
-	}
+    public void setProfileImg(String profileImg) {
+        this.profileImg = profileImg;
+    }
 
-	public void setExerciseVideoId(long exerciseVideoId) {
-		this.exerciseVideoId = exerciseVideoId;
-	}
+    public long getMemberId() {
+        return memberId;
+    }
 
-	public String getContent() {
-		return content;
-	}
+    public void setMemberId(long memberId) {
+        this.memberId = memberId;
+    }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public long getExerciseVideoId() {
+        return exerciseVideoId;
+    }
 
-	public long getLikeCnt() {
-		return likeCnt;
-	}
+    public void setExerciseVideoId(long exerciseVideoId) {
+        this.exerciseVideoId = exerciseVideoId;
+    }
 
-	public void setLikeCnt(long likeCnt) {
-		this.likeCnt = likeCnt;
-	}
+    public String getContent() {
+        return content;
+    }
 
-	public long getBlockCnt() {
-		return blockCnt;
-	}
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-	public void setBlockCnt(long blockCnt) {
-		this.blockCnt = blockCnt;
-	}
+    public long getLikeCnt() {
+        return likeCnt;
+    }
 
-	public boolean isLiked() {
-		return liked;
-	}
+    public void setLikeCnt(long likeCnt) {
+        this.likeCnt = likeCnt;
+    }
 
-	public void setLiked(boolean liked) {
-		this.liked = liked;
-	}
+    public long getBlockCnt() {
+        return blockCnt;
+    }
 
-	public boolean isBlocked() {
-		return blocked;
-	}
+    public void setBlockCnt(long blockCnt) {
+        this.blockCnt = blockCnt;
+    }
 
-	public void setBlocked(boolean blocked) {
-		this.blocked = blocked;
-	}
+    public boolean isLiked() {
+        return liked;
+    }
 
-	public int getRating() {
-		return rating;
-	}
+    public void setLiked(boolean liked) {
+        this.liked = liked;
+    }
 
-	public void setRating(int rating) {
-		this.rating = rating;
-	}
+    public boolean isBlocked() {
+        return blocked;
+    }
 
-	public LocalDateTime getRegDate() {
-		return regDate;
-	}
+    public void setBlocked(boolean blocked) {
+        this.blocked = blocked;
+    }
 
-	public void setRegDate(LocalDateTime regDate) {
-		this.regDate = regDate;
-	}
+    public int getRating() {
+        return rating;
+    }
 
-	public LocalDateTime getUpdateDate() {
-		return updateDate;
-	}
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
 
-	public void setUpdateDate(LocalDateTime updateDate) {
-		this.updateDate = updateDate;
-	}
+    public LocalDateTime getRegDate() {
+        return regDate;
+    }
 
-	public boolean isDeleted() {
-		return deleted;
-	}
+    public void setRegDate(LocalDateTime regDate) {
+        this.regDate = regDate;
+    }
 
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
-	}
+    public LocalDateTime getUpdateDate() {
+        return updateDate;
+    }
 
-	@Override
-	public String toString() {
-		return "Review [id=" + id + ", memberId=" + memberId + ", exerciseVideoId=" + exerciseVideoId + ", content="
-				+ content + ", likeCnt=" + likeCnt + ", blockCnt=" + blockCnt + ", rating=" + rating + ", regDate="
-				+ regDate + ", updateDate=" + updateDate + ", deleted=" + deleted + "]";
-	}
+    public void setUpdateDate(LocalDateTime updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    @Override
+    public String toString() {
+        return "Review [id=" + id + ", memberId=" + memberId + ", exerciseVideoId=" + exerciseVideoId + ", content="
+                + content + ", likeCnt=" + likeCnt + ", blockCnt=" + blockCnt + ", rating=" + rating + ", regDate="
+                + regDate + ", updateDate=" + updateDate + ", deleted=" + deleted + "]";
+    }
 }
