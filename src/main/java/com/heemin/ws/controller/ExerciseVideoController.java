@@ -1,5 +1,7 @@
 package com.heemin.ws.controller;
 
+import static com.heemin.ws.controller.MemberManager.getMemberId;
+
 import com.heemin.ws.model.dto.SearchCondition;
 import com.heemin.ws.model.dto.member.Member;
 import com.heemin.ws.model.dto.requests.video.VideoBlock;
@@ -8,14 +10,7 @@ import com.heemin.ws.model.dto.video.ExerciseVideo;
 import com.heemin.ws.model.service.ExerciseVideoReviewService;
 import com.heemin.ws.model.service.ExerciseVideoService;
 import com.heemin.ws.model.service.MemberService;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-
-import java.sql.Array;
-import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,9 +23,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.NativeWebRequest;
-
-
-import static com.heemin.ws.controller.MemberManager.getMemberId;
 
 @RestController
 @RequestMapping("/api/videos")

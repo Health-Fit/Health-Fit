@@ -1,9 +1,10 @@
 package com.heemin.ws.controller;
 
+import static com.heemin.ws.controller.MemberManager.getMemberId;
+
 import com.heemin.ws.model.dto.member.Member;
 import com.heemin.ws.model.dto.member.SignupInfo;
 import com.heemin.ws.model.service.MemberService;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,10 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.NativeWebRequest;
 
-import static com.heemin.ws.controller.MemberManager.getMemberId;
-
 @RestController
-@RequestMapping("api/members")
+@RequestMapping("/api/members")
 public class MemberController {
     MemberService memberService;
 
@@ -68,7 +67,8 @@ public class MemberController {
     }
 
     @PostMapping
-    public ResponseEntity<?> setup(@RequestBody SignupInfo info, Long memberId) {
+    public ResponseEntity<?> setup(@RequestBody SignupInfo info, NativeWebRequest nativeWebRequest) {
+        long memberId = MemberManager.getMemberId(nativeWebRequest);
         return memberService.setup(info, memberId).getResponse();
     }
 }

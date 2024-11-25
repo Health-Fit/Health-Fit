@@ -36,6 +36,6 @@
     </update>
 
     <update id="updateNickname" parameterType="map">
-        UPDATE member SET nickname=#{nickname} WHERE id=#{id};
+        UPDATE member SET nickname=#{nickname} WHERE id=#{memberId};
     </update>
 </mapper>
