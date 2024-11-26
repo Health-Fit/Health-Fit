@@ -19,7 +19,7 @@ import org.springframework.util.PatternMatchUtils;
 public class JwtAuthorizationFilter implements Filter {
 
     private final String[] whiteUris = {"/", "/api/auth/login/**", "/api/videos", "/api/auth/access-token",
-            "/api/categories"};
+            "/api/categories", "/api/videos/ex"};
     private final JwtProvider jwtProvider = new JwtProvider();
     private final ObjectMapper objectMapper;
     private final RedisTemplate redisTemplate;

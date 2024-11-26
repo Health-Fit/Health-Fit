@@ -28,7 +28,7 @@ public class MemberService {
 
     public Response setup(SignupInfo info, long memberId) {
         memberDao.updateNickname(memberId, info.getNickname());
-        categoryDao.insertMemberCategory(memberId, info.getCategoryIds());
+        categoryDao.insertMemberCategory(memberId, info.getCategories());
         return new Response(200);
     }
 }
