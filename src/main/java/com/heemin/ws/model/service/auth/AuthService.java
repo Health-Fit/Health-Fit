@@ -15,7 +15,6 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AuthService {
@@ -34,7 +33,6 @@ public class AuthService {
         this.redisTemplate = redisTemplate;
     }
 
-    @Transactional
     public Response login(String type, String code) {
         // type 이름으로 Reuqester 가져오기
         OauthRequester requester = oauthRequesterFactory.getRequester(type);
@@ -56,7 +54,6 @@ public class AuthService {
 
         // 자체 Jwt 토큰 만들고 refreshToken 저장
         Jwt jwt = jwtProvider.createJwt(Map.of("memberId", member.getId()));
-        System.out.println("@@@memberId : " + member.getId());
         authDao.insertRefreshToken(member.getId(), jwt.getRefreshToken());
 
         // 회원 가입인 경우, 운동 영상 정보 + Jwt 반환
@@ -67,12 +64,12 @@ public class AuthService {
         return memberDao.selectByEmail(email);
     }
 
-    private int signup(Member member) {
+    private long signup(Member member) {
         member.setNickname(member.getName());
-        return memberDao.insert(member);
+        memberDao.insert(member);
+        return memberDao.selectLastInsertId();
     }
 
-    @Transactional
     public Response logout(HttpServletRequest request, long memberId) {
         JwtExtractor.extract(request).ifPresent(token -> {
             long expiration = jwtProvider.getAccessTokenExpiration(token);

@@ -14,4 +14,6 @@ public interface MemberDao {
     public int update(Member member);
 
     int updateNickname(@Param("memberId") long memberId, @Param("nickname") String nickname);
+
+    long selectLastInsertId();
 }

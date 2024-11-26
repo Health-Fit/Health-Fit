@@ -54,6 +54,7 @@ public class MemberController {
     @PutMapping("")
     public ResponseEntity<?> updateMember(@RequestBody Member member, NativeWebRequest webRequest) {
         long memberId = getMemberId(webRequest);
+
         // 현재 로그인된 정보가 없다면 잘못된 요청 반환
         if (memberId == -1)
             return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
@@ -69,7 +70,6 @@ public class MemberController {
     @PostMapping
     public ResponseEntity<?> setup(@RequestBody SignupInfo info, NativeWebRequest nativeWebRequest) {
         long memberId = MemberManager.getMemberId(nativeWebRequest);
-        System.out.println("@@@" + info.getCategories());
         return memberService.setup(info, memberId).getResponse();
     }
 }

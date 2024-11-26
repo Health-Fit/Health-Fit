@@ -5,37 +5,41 @@
 <mapper namespace="com.heemin.ws.model.dao.MemberDao">
 
     <select id="selectByEmail" parameterType="String" resultType="Member">
-        select * from member where email = #{email};
+        select * from `member` where email = #{email};
     </select>
 
-    <insert id="insert" parameterType="Member" useGeneratedKeys="true" keyProperty="id">
-        insert into member (email, name, nickname, gender, tel, birth
+    <insert id="insert" parameterType="Member">
+        INSERT INTO `member` (email, name, nickname, gender, tel, birth
         <if test="profileImg != null">
             , profile_img
         </if>)
-        values (#{email}, #{name}, #{nickname}, #{gender}, #{tel}, #{birth}
+        VALUES (#{email}, #{name}, #{nickname}, #{gender}, #{tel}, #{birth}
         <if test="profileImg != null">
             , #{profileImg}
         </if>);
     </insert>
 
-    <select id="selectById" parameterType="long" resultType="Member">
-    	SELECT id, email, name, nickname, gender, tel, profile_img, birth, descript, reg_date
-      FROM member
-    	WHERE id = #{id}
-      AND deleted = false;
+    <select id="selectLastInsertId" resultType="long">
+        SELECT LAST_INSERT_ID();
     </select>
-    
+
+    <select id="selectById" parameterType="long" resultType="Member">
+        SELECT id, email, name, nickname, gender, tel, profile_img, birth, descript, reg_date
+        FROM `member`
+        WHERE id = #{id}
+        AND deleted = false;
+    </select>
+
     <update id="update" parameterType="Member">
-    	UPDATE member SET
-      nickname = #{nickname},
-      tel = #{tel},
-      profile_img = #{profileImg},
-      descript = #{descript}
-    	WHERE id = #{id};
+        UPDATE `member` SET
+        nickname = #{nickname},
+        tel = #{tel},
+        profile_img = #{profileImg},
+        descript = #{descript}
+        WHERE id = #{id};
     </update>
 
     <update id="updateNickname" parameterType="map">
-        UPDATE member SET nickname=#{nickname} WHERE id=#{memberId};
+        UPDATE `member` SET nickname = #{nickname} WHERE id = #{memberId};
     </update>
 </mapper>
