@@ -69,6 +69,7 @@ public class MemberController {
     @PostMapping
     public ResponseEntity<?> setup(@RequestBody SignupInfo info, NativeWebRequest nativeWebRequest) {
         long memberId = MemberManager.getMemberId(nativeWebRequest);
+        System.out.println("@@@" + info.getCategories());
         return memberService.setup(info, memberId).getResponse();
     }
 }

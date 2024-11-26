@@ -4,15 +4,15 @@ import java.util.List;
 
 public class SignupInfo {
 
-    private List<Integer> categoryIds;
+    private List<Integer> categories;
     private String nickname;
 
-    public List<Integer> getCategoryIds() {
-        return categoryIds;
+    public List<Integer> getCategories() {
+        return categories;
     }
 
-    public void setCategoryIds(List<Integer> categoryIds) {
-        this.categoryIds = categoryIds;
+    public void setCategories(List<Integer> categories) {
+        this.categories = categories;
     }
 
     public String getNickname() {
